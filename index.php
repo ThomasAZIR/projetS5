@@ -1,5 +1,6 @@
 <?php session_start();
 include "connexion.php" ?>
+
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -24,12 +25,6 @@ include "connexion.php" ?>
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
 
-
-    <?php
-
-
-
-    ?>
 
 
 </head>
@@ -107,8 +102,17 @@ include "connexion.php" ?>
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__left">
                             <ul>
-                                <li><i class="fa fa-envelope"></i> yo@colorlib.com</li>
-                                <li>Free Shipping for all Order of $99</li>
+                            <li>  <i> <!-- class="fa fa-envelope"> --> Université de lorrainde, IUT de metz </i>  </li>
+                                <li>                            <div class="header__top__right__auth">
+                                         <?php
+                                            if (!isset($_SESSION['mail_prod'])) {
+                                                echo "qui êtes vous ? :  <input type=\"submit\" value=\"Client\" onclick=\"window . location . href = 'login.php?statut=Client'; \"  />  
+                           <input type=\"submit\" value=\"Producteur\" onclick=\"window . location . href = 'login.php?statut=Producteur';\"/>";
+                                            } else {
+                                                echo "Welcome" . "<input type=\"submit\" value=\"Deconnexion\" onclick=\"window . location . href = '';\"/>";
+                                            }
+                                            ?>
+                                    </div></li>
                             </ul>
                         </div>
                     </div>
@@ -125,13 +129,11 @@ include "connexion.php" ?>
                                 <div>English</div>
                                 <span class="arrow_carrot-down"></span>
                                 <ul>
-                                    <li><a href="#">Spanis</a></li>
+                                    <li><a href="#">French</a></li>
                                     <li><a href="#">English</a></li>
                                 </ul>
                             </div>
-                            <div class="header__top__right__auth">
-                                <a href="#"><i class="fa fa-user"></i> Login</a>
-                            </div>
+
                         </div>
                     </div>
                 </div>
