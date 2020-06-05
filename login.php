@@ -25,7 +25,7 @@
         if (empty($_POST["ide"])) {
             $identifiantErr = "Champ obligatoire";
         } else {
-            $identifiant = test_input($_POST["ide"]);
+            $identifiant = test_input($_POST["ide"]); // erreur ?
             $testIdentifiant = true;
         }
         if (empty($_POST["pass"])) {
