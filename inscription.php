@@ -291,8 +291,8 @@ session_start();
                                     Nom :
                                 </td>
                                 <td>
-                                    <input required type='text' size='20' name='nom_client'
-                                           placeholder="Saissez votre Nom">
+                                    <input type="text" name="nom" placeholder="Saissez votre nom">
+                                    <span class="error"> <?php echo $nomErr; ?></span>
                                 </td>
                             </tr>
                             </td></tr>
@@ -302,18 +302,18 @@ session_start();
                                     Prénom :
                                 </td>
                                 <td>
-                                    <input required type='text' size='20' name='prenom_client'
-                                           placeholder="Saissez votre prénom">
+                                    <input type="text" name="prenom" placeholder="Saissez votre prénom">
+                                    <span class="error"> <?php echo $prenomErr; ?></span>
                                 </td>
                             </tr>
                             </td></tr>
                             <tr>
                                 <td>
-                                    Adresse
+                                    Adresse :
                                 </td>
                                 <td>
-                                    <input required type='text' size='20' name='adresse_client'
-                                           placeholder="Saissez votre adresse">
+                                    <input type="text" name="adresse" placeholder="Saissez votre adresse" size="45">
+                                    <span class="error"> <?php echo $adresseErr; ?></span>
                                 </td>
                             </tr>
                             <tr>
@@ -336,15 +336,10 @@ session_start();
                                     Mot de passe :
                                 </td>
                                 <td>
-                                    <input required type='password' size='20' name='mdp_client'
-                                           placeholder="Saissez votre mot de passe">
+                                    <input type="password" name="mdp" placeholder="Saissez votre mot de passe">
+                                    <span class="error"> <?php echo $mdpErr; ?></span>
                                 </td>
                             </tr>
-                            </td></tr>
-                            <tr>
-                                <td>
-
-
                         </table>
                         <br>
                         <div><input type="submit" value="Valider"/> <input type="reset" value="Effacer"/></div>
@@ -418,7 +413,7 @@ session_start();
                             Copyright &copy;<script>document.write(new Date().getFullYear());</script>
                             All rights reserved | This template is made with <i class="fa fa-heart"
                                                                                 aria-hidden="true"></i> by <a
-                                href="https://colorlib.com" target="_blank">Colorlib</a>
+                                    href="https://colorlib.com" target="_blank">Colorlib</a>
                             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
                     </div>
                     <div class="footer__copyright__payment"><img src="img/payment-item.png" alt=""></div>

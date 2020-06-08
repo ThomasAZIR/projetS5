@@ -25,13 +25,13 @@
         if (empty($_POST["ide"])) {
             $identifiantErr = "Champ obligatoire";
         } else {
-            $identifiant = test_input($_POST["ide"]); // erreur ?
+            $identifiant = $_POST["ide"]; // erreur ?
             $testIdentifiant = true;
         }
         if (empty($_POST["pass"])) {
             $passwordErr = "Champ obligatoire";
         } else {
-            $password = test_input($_POST["pass"]);
+            $password = $_POST["pass"];
             $testPassword = true;
         }
 
@@ -72,6 +72,7 @@
                         $_SESSION["id_prod"] = $resIdentifiant;
                         $_SESSION["nom"] = $resNom;
                         $_SESSION["prenom"] = $resPrenom;
+                        $_SESSION["statut"] = $statut;
 
                         header('location:index.php');
                     } else {
@@ -85,7 +86,7 @@
         //Client
         if ($statut == "Client") {
             if ($testIdentifiant && $testPassword) {
-                $testExist = $objPdo->prepare('SELECT * FROM Producteur WHERE mail_client = ?');
+                $testExist = $objPdo->prepare('SELECT * FROM Client WHERE mail_client = ?');
                 $testExist->bindValue(1, utf8_decode($identifiant));
                 $testExist->execute();
 
@@ -100,10 +101,8 @@
                     $resMdp = utf8_encode($row["mdp_client"]);
                 }
                 $testExist->closeCursor();
-                var_dump($resIdentifiant);
-                var_dump($resMdp);
-                var_dump($password);
-                var_dump($resEmail);
+//                var_dump($resIdentifiant);
+//                var_dump($password);
 
                 //Si la requete marche pas c'est que l'identifiant est invalide ! donc on l'affiche, sinon on créé la session si le mdp est valide
                 if ($resIdentifiant == NULL) {
@@ -116,6 +115,7 @@
                         $_SESSION["id_client"] = $resIdentifiant;
                         $_SESSION["nom"] = $resNom;
                         $_SESSION["prenom"] = $resPrenom;
+                        $_SESSION["statut"] = $statut;
 
                         header('location:index.php');
                     } else {
@@ -143,7 +143,7 @@
 
         <input type="submit" value="Connexion" name="btn">
         <input type="button" value="Accueil" onclick="window.location.href='index.php';"/>
-        <input type="button" value="Inscription" onclick="window.location.href='SignIn.php';"/>
+        <input type="button" value="Inscription" onclick="window.location.href='inscription.php';"/>
     </div>
 </form>
 </body>

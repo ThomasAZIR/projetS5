@@ -20,9 +20,6 @@ $_SESSION['rmail_client']=$_POST['mail_client'];
 
 $insert=$objPdo->prepare ("INSERT INTO Client VALUES(nom_client,prenom_client,adresse_client,mail_client,mdp_client) VALUES(?,?,?,?,?)");
 $insert->execute(array($nom_client,$prenom_client,$adresse_client,$mail_client,$mdp_client));
-header('Location:index.php');
 
-if ($valid1 == true)  header("Location:inscription.php?erreur=1");
-else header("Location:inscription.php?erreur=3");
 
 ?>

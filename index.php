@@ -105,11 +105,11 @@ include "connexion.php" ?>
                             <li>  <i> <!-- class="fa fa-envelope"> --> Université de lorrainde, IUT de metz </i>  </li>
                                 <li>                            <div class="header__top__right__auth">
                                          <?php
-                                            if (!isset($_SESSION['mail_prod'])) {
+                                            if (!isset($_SESSION['email'])) {
                                                 echo "qui êtes vous ? :  <input type=\"submit\" value=\"Client\" onclick=\"window . location . href = 'login.php?statut=Client'; \"  />  
                            <input type=\"submit\" value=\"Producteur\" onclick=\"window . location . href = 'login.php?statut=Producteur';\"/>";
                                             } else {
-                                                echo "Welcome" . "<input type=\"submit\" value=\"Deconnexion\" onclick=\"window . location . href = '';\"/>";
+                                                echo "Welcome " . "<input type=\"submit\" value=\"Deconnexion\" onclick=\"window . location . href = 'logout.php';\"/>";
                                             }
                                             ?>
                                     </div></li>
