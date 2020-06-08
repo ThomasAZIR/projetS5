@@ -116,7 +116,6 @@
                         $_SESSION["nom"] = $resNom;
                         $_SESSION["prenom"] = $resPrenom;
                         $_SESSION["statut"] = $statut;
-
                         header('location:index.php');
                     } else {
                         $passwordErr = "Mot de passe invalide";

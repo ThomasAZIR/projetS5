@@ -1,6 +1,108 @@
-<?php
-include 'connexion.php';
+<?php include 'connexion.php';
 session_start();
+
+$nomErr = $prenomErr = $emailErr = $adresseErr = $mdpErr = $statutErr = "";
+$nom = $prenom = $email = $adresse = $mdp = $statut = "";
+$testNom = $testPrenom = $testEmail = $testadresse = $testMdp = $testStatut = false;
+$testAdresseMailDisponible = false;
+
+if (isset($_POST["validate"])) {
+    $ajoute = true;
+
+    //On gère les erreurs sur les champs vides
+
+
+    $statut = $_POST["statut"];
+    $testStatut = true;
+
+    if (empty($_POST["nom"])) {
+        $nomErr = "Champ obligatoire";
+    } else {
+        $nom = $_POST["nom"];
+        $testNom = true;
+    }
+
+    if (empty($_POST["prenom"])) {
+        $prenomErr = "Champ obligatoire";
+    } else {
+        $prenom = $_POST["prenom"];
+        $testPrenom = true;
+    }
+
+    if (empty($_POST["adresse"])) {
+        $pseudoErr = "Champ obligatoire";
+    } else {
+        $adresse = $_POST["adresse"];
+        $testAdresse = true;
+    }
+
+    if (empty($_POST["email"])) {
+        $emailErr = "Champ obligatoire";
+    } else {
+        $email = $_POST["email"];
+        $testEmail = true;
+    }
+
+    if (empty($_POST["mdp"])) {
+        $mdpErr = "Champ obligatoire";
+    } else {
+        $mdp = $_POST["mdp"];
+        $testMdp = true;
+    }
+
+    if ($testPrenom && $testNom && $testAdresse && $testEmail && $testMdp) {
+
+        //On teste si l'adresse mail est disponible
+        $resIdentifiant = "";
+        $resIdentifiant2 = "";
+
+        $testExistPseudo = $objPdo->prepare('SELECT id_client FROM Client WHERE mail_client = ?');
+        $testExistPseudo->bindValue(1, $_POST["email"]);
+        $testExistPseudo->execute();
+        while ($row = $testExistPseudo->fetch()) {
+            $resIdentifiant = $row["id_client"];
+        }
+        $testExistPseudo->closeCursor();
+
+        $testExistMail = $objPdo->prepare('SELECT id_producteur FROM Producteur WHERE mail_producteur = ?');
+        $testExistMail->bindValue(1, $_POST["email"]);
+        $testExistMail->execute();
+        while ($row = $testExistMail->fetch()) {
+            $resIdentifiant2 = $row["idproducteur"];
+        }
+        $testExistMail->closeCursor();
+
+        if (($resIdentifiant == null) && ($resIdentifiant2 == null)) {
+            //La requète ne s'execute pas si des champs sont vide car la base est protégé sur phpmyadmin
+            if ($statut == "client") {
+                $addclient = $objPdo->prepare('INSERT INTO Client ( nom_client, prenom_client, adresse_client, mail_client, mdp_client) VALUES (?,?,?,?,?)');
+                $addclient->bindValue(1, utf8_decode($nom), PDO::PARAM_STR);
+                $addclient->bindValue(2, utf8_decode($prenom), PDO::PARAM_STR);
+                $addclient->bindValue(5, utf8_decode($adresse), PDO::PARAM_STR);
+                $addclient->bindValue(3, utf8_decode($email), PDO::PARAM_STR);
+                $addclient->bindValue(4, utf8_decode($mdp), PDO::PARAM_STR);
+                $addclient->execute();
+                $addclient->closeCursor();
+                header("location:login.php?statut=Client");
+            } else if ($statut == "producteur"){
+                $addprod = $objPdo->prepare('INSERT INTO Producteur ( nom_prod, prenom_prod, adresse_prod, mail_prod, mdp_prod) VALUES (?,?,?,?,?)');
+
+                $addprod->bindValue(1, utf8_decode($nom), PDO::PARAM_STR);
+                $addprod->bindValue(2, utf8_decode($prenom), PDO::PARAM_STR);
+                $addprod->bindValue(5, utf8_decode($adresse), PDO::PARAM_STR);
+                $addprod->bindValue(3, utf8_decode($email), PDO::PARAM_STR);
+                $addprod->bindValue(4, utf8_decode($mdp), PDO::PARAM_STR);
+                $addprod->execute();
+                $addprod->closeCursor();
+                header("location:login.php?statut=Producteur");
+            }
+        } else {
+            $emailErr = 'Adresse Mail déja utilisée';
+        }
+    }
+} else {
+    $ajoute = false;
+}
 ?>
 
 <!DOCTYPE html>
@@ -232,7 +334,7 @@ session_start();
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="breadcrumb__text">
-                    <h2>S'inscrire</h2>
+                    <h2>S'inscire</h2>
                     <div class="breadcrumb__option">
                         <a href="./index.php">Accueil</a>
                         <span>S'inscrire</span>
@@ -283,42 +385,44 @@ session_start();
         <div class="row">
             <div class="col-lg-3 col-md-3 col-sm-6 text-center">
                 <div class="contact__widget">
-                    <form onsubmit="return valider();" name="Formu" method="POST" action="inscrire.php">
+                    <form onsubmit="return valider();" name="Formu" method="POST">
                         <table>
-                            </td></tr>
+                            <tr>
+                                <td> statut:
+                                </td>
+                                <td>
+                                    <select size='20' name="statut" placeholder="client">
+                                        <option selected> client</option>
+                                        <option> producteur</option>
+                                    </select> <? //php echo $statutErr; ?>
+                                </td>
+                            </tr>
                             <tr>
                                 <td>
                                     Nom :
                                 </td>
                                 <td>
-                                    <input type="text" name="nom" placeholder="Saissez votre nom">
-                                    <span class="error"> <?php echo $nomErr; ?></span>
+                                    <input required type='text' size='20' name='nom'
+                                           placeholder="Saissez votre Nom"> <?php echo $nomErr; ?>
                                 </td>
                             </tr>
-                            </td></tr>
                             <tr>
                                 <td>
 
                                     Prénom :
                                 </td>
                                 <td>
-                                    <input type="text" name="prenom" placeholder="Saissez votre prénom">
-                                    <span class="error"> <?php echo $prenomErr; ?></span>
-                                </td>
-                            </tr>
-                            </td></tr>
-                            <tr>
-                                <td>
-                                    Adresse :
-                                </td>
-                                <td>
-                                    <input type="text" name="adresse" placeholder="Saissez votre adresse" size="45">
-                                    <span class="error"> <?php echo $adresseErr; ?></span>
+                                    <input required type='text' size='20' name='prenom'
+                                           placeholder="Saissez votre prénom"><?php echo $prenomErr; ?>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-
+                                    Adresse
+                                </td>
+                                <td>
+                                    <input required type='text' size='20' name='adresse'
+                                           placeholder="Saissez votre adresse"><?php echo $adresseErr; ?>
                                 </td>
                             </tr>
                             <tr>
@@ -326,8 +430,8 @@ session_start();
                                     E-mail:
                                 </td>
                                 <td>
-                                    <input required type='email' size='20' name='mail_client'
-                                           placeholder="Saissez votre e-mail">
+                                    <input required type='email' size='20' name='email'
+                                           placeholder="Saissez votre e-mail"><?php echo $emailErr; ?>
                                 </td>
                             </tr>
                             <tr>
@@ -336,13 +440,14 @@ session_start();
                                     Mot de passe :
                                 </td>
                                 <td>
-                                    <input type="password" name="mdp" placeholder="Saissez votre mot de passe">
-                                    <span class="error"> <?php echo $mdpErr; ?></span>
+                                    <input required type='password' size='20' name='mdp'
+                                           placeholder="Saissez votre mot de passe"><?php echo $mdpErr; ?>
                                 </td>
                             </tr>
                         </table>
                         <br>
-                        <div><input type="submit" value="Valider"/> <input type="reset" value="Effacer"/></div>
+                        <div><input type="submit" value="Valider" name="validate"/> <input type="reset"
+                                                                                           value="Effacer"/></div>
                     </form>
                 </div>
             </div>
