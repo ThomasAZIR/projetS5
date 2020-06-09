@@ -139,16 +139,14 @@
                         <ul>
                             <li><a href="./index.php">Home</a></li>
                             <li class="active"><a href="./shop-grid.php">Shop</a></li>
-                            <li><a href="#">Pages</a>
-                                <ul class="header__menu__dropdown">
-                                    <li><a href="./shop-details.php">Shop Details</a></li>
-                                    <li><a href="./shoping-cart.php">Shoping Cart</a></li>
-                                    <li><a href="./checkout.php">Check Out</a></li>
-                                    <li><a href="./blog-details.php">Blog Details</a></li>
-                                </ul>
-                            </li>
                             <li><a href="./blog.php">Blog</a></li>
                             <li><a href="./contact.php">Contact</a></li>
+                            <li><a href="#">S'identifier</a>
+                                <ul class="header__menu__dropdown">
+                                    <li><a href="./login.php?statut=Client">Client</a></li>
+                                    <li><a href="./login.php?statut=Producteur">Producteur</a></li>
+                                </ul>
+                            </li>
                         </ul>
                     </nav>
                 </div>
