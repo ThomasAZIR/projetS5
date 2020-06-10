@@ -1,4 +1,4 @@
-<?php ?>
+<?php session_start(); ?>
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -95,34 +95,43 @@
     <div class="header__top">
         <div class="container">
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-6 col-md-6">
                     <div class="header__top__left">
                         <ul>
-                            <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
-                            <li>Free Shipping for all Order of $99</li>
+                            <li><i> <!-- class="fa fa-envelope"> --> Université de lorraine, IUT de metz </i></li>
+                            <li>
+                                <div class="header__top__right__auth">
+                                    <?php
+                                    if (!isset($_SESSION['email'])) {
+                                        echo "qui êtes vous ? :  <input type=\"submit\" value=\"Client\" onclick=\"window . location . href = 'login.php?statut=Client'; \"  />  
+                           <input type=\"submit\" value=\"Producteur\" onclick=\"window . location . href = 'login.php?statut=Producteur';\"/>";
+                                    } else {
+                                        echo "Welcome " . "<input type=\"submit\" value=\"Deconnexion\" onclick=\"window . location . href = 'logout.php';\"/>";
+                                    }
+                                    ?>
+                                </div>
+                            </li>
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-6 col-md-6">
                     <div class="header__top__right">
                         <div class="header__top__right__social">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-linkedin"></i></a>
-                            <a href="#"><i class="fa fa-pinterest-p"></i></a>
+                            <a href="https://fr-fr.facebook.com/IUT.metz.officiel/"><i class="fa fa-facebook"></i></a>
+                            <a href="https://twitter.com/univ_lorraine?lang=fr"><i class="fa fa-twitter"></i></a>
+                            <a href="https://www.instagram.com/iutmetz/"><i class="fa fa-instagram"></i></a>
+
                         </div>
                         <div class="header__top__right__language">
-                            <img src="img/language.png" alt="">
-                            <div>English</div>
+                            <img src="img/drapeaufr.png" alt="">
+                            <div>Français</div>
                             <span class="arrow_carrot-down"></span>
                             <ul>
-                                <li><a href="#">Spanis</a></li>
+                                <li><a href="#">French</a></li>
                                 <li><a href="#">English</a></li>
                             </ul>
                         </div>
-                        <div class="header__top__right__auth">
-                            <a href="#"><i class="fa fa-user"></i> Login</a>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -138,33 +147,26 @@
             <div class="col-lg-6">
                 <nav class="header__menu">
                     <ul>
-                        <li><a href="./index.php">Home</a></li>
+                        <li class="active"><a href="./index.php">Home</a></li>
                         <li><a href="./shop-grid.php">Shop</a></li>
                         <li><a href="./blog.php">Blog</a></li>
-                        <li class="active"><a href="./contact.php">Contact</a></li>
-                        <li><a href="#">S'identifier</a>
-                            <ul class="header__menu__dropdown">
-                                <li><a href="./login.php?statut=Client">Client</a></li>
-                                <li><a href="./login.php?statut=Producteur">Producteur</a></li>
-                            </ul>
-                        </li>
+                        <li><a href="./contact.php">Contact</a></li>
+                        <?php
+                        if (!isset($_SESSION['email'])) {
+                            echo "
+                             <li><a href=\"#\">S'identifier</a>
+                                <ul class=\"header__menu__dropdown\">
+                                    <li><a href=\"./login.php?statut=Client\">Client</a></li>
+                                    <li><a href=\"./login.php?statut=Producteur\">Producteur</a></li>
+                                </ul>
+                            </li>";
+                        }
+
+                        ?>
                     </ul>
                 </nav>
             </div>
-            <div class="col-lg-3">
-                <div class="header__cart">
-                    <ul>
-                        <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                        <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
-                    </ul>
-                    <div class="header__cart__price">item: <span>$150.00</span></div>
-                </div>
-            </div>
         </div>
-        <div class="humberger__open">
-            <i class="fa fa-bars"></i>
-        </div>
-    </div>
 </header>
 <!-- Header Section End -->
 
@@ -225,9 +227,9 @@
 
 <!-- Map Begin -->
 <div class="map">
-    <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d49116.39176087041!2d-86.41867791216099!3d39.69977417971648!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x886ca48c841038a1%3A0x70cfba96bf847f0!2sPlainfield%2C%20IN%2C%20USA!5e0!3m2!1sen!2sbd!4v1586106673811!5m2!1sen!2sbd"
-        height="500" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5661876.551996695!2d-2.435119738363391!3d46.13903298857387!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd54a02933785731%3A0x6bfd3f96c747d9f7!2sFrance!5e0!3m2!1sfr!2sfr!4v1591272924421!5m2!1sfr!2sfr"
+            width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false"
+            tabindex="0"></iframe>
     <div class="map-inside">
         <i class="icon_pin"></i>
         <div class="inside-widget">
@@ -279,9 +281,9 @@
                         <a href="./index.php"><img src="img/logo.png" alt=""></a>
                     </div>
                     <ul>
-                        <li>Address: 60-49 Road 11378 New York</li>
-                        <li>Phone: +65 11.188.888</li>
-                        <li>Email: hello@colorlib.com</li>
+
+                        <li>Numéro: 03 72 74 84 00</li>
+                        <li>Adresse : Ile du Saulcy. 57045 Metz</li>
                     </ul>
                 </div>
             </div>
@@ -289,36 +291,32 @@
                 <div class="footer__widget">
                     <h6>Useful Links</h6>
                     <ul>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">About Our Shop</a></li>
-                        <li><a href="#">Secure Shopping</a></li>
-                        <li><a href="#">Delivery infomation</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Our Sitemap</a></li>
+                        <li><a href="#">A propos de nous</a></li>
+                        <li><a href="#">A propos de notre site</a></li>
+                        <li><a href="#">Site Sécurisé</a></li>
+                        <li><a href="#">Information de livraison</a></li>
+                        <li><a href="#">Politique de confidentialité</a></li>
+
                     </ul>
                     <ul>
-                        <li><a href="#">Who We Are</a></li>
-                        <li><a href="#">Our Services</a></li>
-                        <li><a href="#">Projects</a></li>
+                        <li><a href="#">Qui sommes nous</a></li>
+                        <li><a href="#">Nos Services</a></li>
+                        <li><a href="#">Projets</a></li>
                         <li><a href="#">Contact</a></li>
                         <li><a href="#">Innovation</a></li>
-                        <li><a href="#">Testimonials</a></li>
+
                     </ul>
                 </div>
             </div>
             <div class="col-lg-4 col-md-12">
                 <div class="footer__widget">
-                    <h6>Join Our Newsletter Now</h6>
-                    <p>Get E-mail updates about our latest shop and special offers.</p>
-                    <form action="#">
-                        <input type="text" placeholder="Enter your mail">
-                        <button type="submit" class="site-btn">Subscribe</button>
-                    </form>
+                    <h6>Si vous voulez nous contacter</h6>
+                    <p>Rejoignez nous sur la page <a href="contact.php">Contact</a></p>
+
                     <div class="footer__widget__social">
-                        <a href="#"><i class="fa fa-facebook"></i></a>
-                        <a href="#"><i class="fa fa-instagram"></i></a>
-                        <a href="#"><i class="fa fa-twitter"></i></a>
-                        <a href="#"><i class="fa fa-pinterest"></i></a>
+                        <a href="https://fr-fr.facebook.com/IUT.metz.officiel/"><i class="fa fa-facebook"></i></a>
+                        <a href="https://www.instagram.com/iutmetz/"><i class="fa fa-instagram"></i></a>
+                        <a href="https://twitter.com/univ_lorraine?lang=fr"><i class="fa fa-twitter"></i></a>
                     </div>
                 </div>
             </div>
@@ -326,9 +324,14 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="footer__copyright">
-                    <div class="footer__copyright__text"><p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p></div>
+                    <div class="footer__copyright__text">
+                        <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                            All rights reserved | This template is made with <i class="fa fa-heart"
+                                                                                aria-hidden="true"></i> by <a
+                                    href="https://colorlib.com" target="_blank">Colorlib</a>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                    </div>
                     <div class="footer__copyright__payment"><img src="img/payment-item.png" alt=""></div>
                 </div>
             </div>
@@ -346,7 +349,6 @@
 <script src="js/mixitup.min.js"></script>
 <script src="js/owl.carousel.min.js"></script>
 <script src="js/main.js"></script>
-
 
 
 </body>
