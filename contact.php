@@ -60,7 +60,7 @@
     </div>
     <nav class="humberger__menu__nav mobile-menu">
         <ul>
-            <li class="active"><a href="./index.php">Home</a></li>
+            <li><a href="./index.php">Home</a></li>
             <li><a href="./shop-grid.php">Shop</a></li>
             <li><a href="#">Pages</a>
                 <ul class="header__menu__dropdown">
@@ -71,7 +71,7 @@
                 </ul>
             </li>
             <li><a href="./blog.php">Blog</a></li>
-            <li><a href="./contact.php">Contact</a></li>
+            <li class="active"><a href="./contact.php">Contact</a></li>
         </ul>
     </nav>
     <div id="mobile-menu-wrap"></div>
@@ -147,10 +147,10 @@
             <div class="col-lg-6">
                 <nav class="header__menu">
                     <ul>
-                        <li class="active"><a href="./index.php">Home</a></li>
+                        <li><a href="./index.php">Home</a></li>
                         <li><a href="./shop-grid.php">Shop</a></li>
                         <li><a href="./blog.php">Blog</a></li>
-                        <li><a href="./contact.php">Contact</a></li>
+                        <li class="active"><a href="./contact.php">Contact</a></li>
                         <?php
                         if (!isset($_SESSION['email'])) {
                             echo "
@@ -176,10 +176,10 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="breadcrumb__text">
-                    <h2>Contact Us</h2>
+                    <h2>Contactez nous</h2>
                     <div class="breadcrumb__option">
-                        <a href="./index.php">Home</a>
-                        <span>Contact Us</span>
+                        <a href="./index.php">Accueil</a>
+                        <span>Contactez nous</span>
                     </div>
                 </div>
             </div>
@@ -195,29 +195,25 @@
             <div class="col-lg-3 col-md-3 col-sm-6 text-center">
                 <div class="contact__widget">
                     <span class="icon_phone"></span>
-                    <h4>Phone</h4>
-                    <p>+01-3-8888-6868</p>
+                    <h4> Téléphone </h4>
+                    <p> 03 72 74 84 90</p>
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-6 text-center">
                 <div class="contact__widget">
                     <span class="icon_pin_alt"></span>
-                    <h4>Address</h4>
-                    <p>60-49 Road 11378 New York</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-6 text-center">
-                <div class="contact__widget">
-                    <span class="icon_clock_alt"></span>
-                    <h4>Open time</h4>
-                    <p>10:00 am to 23:00 pm</p>
+                    <h4>Adresse</h4>
+                    <p>IUT de Metz ,
+                        Île du Saulcy
+                        BP 10628
+                        57045 Metz cedex 01 </p>
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-6 text-center">
                 <div class="contact__widget">
                     <span class="icon_mail_alt"></span>
                     <h4>Email</h4>
-                    <p>hello@colorlib.com</p>
+                    <p> mireille.lemal@univ-lorraine.fr </p>
                 </div>
             </div>
         </div>
@@ -227,19 +223,14 @@
 
 <!-- Map Begin -->
 <div class="map">
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5661876.551996695!2d-2.435119738363391!3d46.13903298857387!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd54a02933785731%3A0x6bfd3f96c747d9f7!2sFrance!5e0!3m2!1sfr!2sfr!4v1591272924421!5m2!1sfr!2sfr"
-            width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false"
-            tabindex="0"></iframe>
-    <div class="map-inside">
-        <i class="icon_pin"></i>
-        <div class="inside-widget">
-            <h4>New York</h4>
-            <ul>
-                <li>Phone: +12-345-6789</li>
-                <li>Add: 16 Creek Ave. Farmingdale, NY</li>
-            </ul>
-        </div>
-    </div>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2611.232673149108!2d6.161611015860417!3d49.120216090189096!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4794dbffe3457bc1%3A0x6d664b5b6b5b44b8!2sIUT%20de%20Metz%2C%20Universit%C3%A9%20de%20Lorraine!5e0!3m2!1sfr!2sfr!4v1591778968129!5m2!1sfr!2sfr" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+
+    <h4>Metz</h4>
+    <ul>
+        <li>IUT de Metz </li>
+    </ul>
+</div>
+</div>
 </div>
 <!-- Map End -->
 
@@ -249,27 +240,19 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="contact__form__title">
-                    <h2>Leave Message</h2>
+                    <h2>  <font color="#FFFFCC"><span style="background-color: #7fad39"><a href="mailto:?subject=&body=" style="color: #ffffff; font-weight: bold"><span style="color: black;  font-weight: bold"> Laissez un message sur notre boite mail</font></h2>
                 </div>
             </div>
         </div>
         <form action="#">
             <div class="row">
-                <div class="col-lg-6 col-md-6">
-                    <input type="text" placeholder="Your name">
-                </div>
-                <div class="col-lg-6 col-md-6">
-                    <input type="text" placeholder="Your Email">
-                </div>
-                <div class="col-lg-12 text-center">
-                    <textarea placeholder="Your message"></textarea>
-                    <button type="submit" class="site-btn">SEND MESSAGE</button>
-                </div>
+
             </div>
         </form>
     </div>
 </div>
 <!-- Contact Form End -->
+
 
 <!-- Footer Section Begin -->
 <footer class="footer spad">
@@ -289,7 +272,7 @@
             </div>
             <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
                 <div class="footer__widget">
-                    <h6>Useful Links</h6>
+                    <h6>Liens utiles</h6>
                     <ul>
                         <li><a href="#">A propos de nous</a></li>
                         <li><a href="#">A propos de notre site</a></li>

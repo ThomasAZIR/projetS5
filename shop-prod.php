@@ -148,7 +148,7 @@
                 <div class="col-lg-6">
                     <nav class="header__menu">
                         <ul>
-                            <li><a href="./index.php">Home</a></li>
+                            <li><a href="./index.php">Accueil</a></li>
                             <li class="active"><a href="./shop-grid.php">Shop</a></li>
                             <li><a href="./blog.php">Blog</a></li>
                             <li><a href="./contact.php">Contact</a></li>
@@ -232,8 +232,8 @@
                 <div class="breadcrumb__text">
                     <h2>Agreen Shop</h2>
                     <div class="breadcrumb__option">
-                        <a href="./index.php">Home</a>
-                        <span>Shop</span>
+                        <a href="./index.php">Accueil </a>
+                        <span>Magasin</span>
                     </div>
                 </div>
             </div>
@@ -414,127 +414,33 @@
             <div class="col-lg-9 col-md-7">
                 <div class="product__discount">
                     <div class="section-title product__discount__title">
-                        <h2>Les catégories</h2>
+                        <h2>Rajoutez un article</h2>
                     </div>
                     <div class="row">
-                        <div class="product__discount__slider owl-carousel">
-                            <div class="col-lg-4">
-                                <div class="product__discount__item">
-                                    <div class="product__discount__item__pic set-bg"
-                                         data-setbg="img/product/product-1.jpg">
-                                    </div>
-                                    <div class="product__discount__item__text">
-                                        <h5><a href="#">Les viandes</a></h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="product__discount__item">
-                                    <div class="product__discount__item__pic set-bg"
-                                         data-setbg="img/product/discount/pd-2.jpg">
-                                    </div>
-                                    <div class="product__discount__item__text">
-                                        <h5><a href="#">Les légumes</a></h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="product__discount__item">
-                                    <div class="product__discount__item__pic set-bg"
-                                         data-setbg="img/product/product-14.jpg">
-                                    </div>
-                                    <div class="product__discount__item__text">
-                                        <h5><a href="#">Les céréales</a></h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="product__discount__item">
-                                    <div class="product__discount__item__pic set-bg"
-                                         data-setbg="img/product/discount/pd-4.jpg">
-                                    </div>
-                                    <div class="product__discount__item__text">
-                                        <h5><a href="#">Les fruits</a></h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="product__discount__item">
-                                    <div class="product__discount__item__pic set-bg"
-                                         data-setbg="img/product/product-13.jpg">
-                                    </div>
-                                    <div class="product__discount__item__text">
-                                        <h5><a href="#">Les produits laitiers</a></h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="product__discount__item">
-                                    <div class="product__discount__item__pic set-bg"
-                                         data-setbg="img/product/discount/pd-6.jpg">
-                                    </div>
-                                    <div class="product__discount__item__text">
-                                        <h5><a href="#">Les fruits</a></h5>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <form method="post">
+                            <select name="produit">
+                                <option value="prod-lait"> yaourts</option>
+                                <option value="légumes"> fromages</option>
+                                </option>
+                            </select>
+                            <select name="produit">
+                                <option value="prod-lait"> courgette</option>
+                                <option value="légumes"> aubergines</option>
+                                </option>
+                            </select>
+                            <span class="error"> <?php echo ""; ?></span><br><br>
+                            <span class="error"> <?php echo ""; ?></span><br></p>
+                            <input type="submit" value="Ajoutez cet article" name="posterSujet"/>
+                        </form>
                     </div>
                 </div>
                 <!-- end section principale -->
-
-
-
-
-                <!-- choix par producteurs -->
-                <div class="col-lg-9 col-md-7">
-                    <div class="product__discount">
-                        <div class="section-title product__discount__title">
-                            <h2>Choisissez un producteurs</h2>
-                        </div>
-                        <div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi dolor ex exercitationem molestias optio quo sit totam? Dolore ducimus, nam! Animi autem nam neque totam. Error magni pariatur perferendis unde.</p>
-                            <?php
-                                $listeProds = $objPdo->query('SELECT  *  FROM producteur');
-                                while ($row = $listeProds->fetch()) {
-                                    $id = $row['id_prod'];
-                                    echo "<div> <a href=\"shop-grid.php?id=$id\"> </div>";
-                                }
-                            ?>
-                        </div>
-                    </div>
-                </div>
-
 
                 <!-- Les catégories -->
                 <div class="col-lg-9 col-md-7">
                     <div class="product__discount">
                         <div class="section-title product__discount__title">
-                            <h2>Les céréales</h2>
-                        </div>
-                        <div></div>
-                    </div>
-                </div>
-                <div class="col-lg-9 col-md-7">
-                    <div class="product__discount">
-                        <div class="section-title product__discount__title">
-                            <h2>Les Produits laitiers</h2>
-                        </div>
-                        <div></div>
-                    </div>
-                </div>
-                <div class="col-lg-9 col-md-7">
-                    <div class="product__discount">
-                        <div class="section-title product__discount__title">
-                            <h2>Les </h2>
-                        </div>
-                        <div></div>
-                    </div>
-                </div>
-                <div class="col-lg-9 col-md-7">
-                    <div class="product__discount">
-                        <div class="section-title product__discount__title">
-                            <h2>Les céréales</h2>
+                            <h2>Vos produits</h2>
                         </div>
                         <div></div>
                     </div>

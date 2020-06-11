@@ -150,7 +150,20 @@ include "connexion.php" ?>
                 <nav class="header__menu">
                     <ul>
                         <li class="active"><a href="./index.php">Home</a></li>
-                        <li><a href="./shop-grid.php">Shop</a></li>
+                        <?php
+                            if (isset($_SESSION['email'])) {
+                                if ($_SESSION["statut"] == "Client") {
+                                    echo "<li><a href=\"./shop-grid.php\">Shop</a></li>";
+                                }
+                                elseif ($_SESSION["statut"] == "Producteur") {
+                                    echo "<li><a href=\"./shop-prod.php\">Shop</a></li>";
+                                }
+                            }
+                            else {
+                                echo "<li><a href=\"./shop-grid.php\">Shop</a></li>";
+                            }
+                        ?>
+
                         <li><a href="./blog.php">Blog</a></li>
                         <li><a href="./contact.php">Contact</a></li>
                         <?php
@@ -511,7 +524,7 @@ include "connexion.php" ?>
             </div>
             <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
                 <div class="footer__widget">
-                    <h6>Useful Links</h6>
+                    <h6>Liens utiles</h6>
                     <ul>
                         <li><a href="#">A propos de nous</a></li>
                         <li><a href="#">A propos de notre site</a></li>

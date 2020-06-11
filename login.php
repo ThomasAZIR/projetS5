@@ -290,7 +290,7 @@ if (!empty($_POST["validate"])) {
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="breadcrumb__text">
-                    <h2>S'inscire</h2>
+                    <h2>Se connecter</h2>
                     <div class="breadcrumb__option">
                         <input type="button" value="Accueil" onclick="window.location.href='index.php';"/>
                         <input type="button" value="Inscription" onclick="window.location.href='inscription.php';"/>
