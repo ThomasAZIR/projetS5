@@ -494,13 +494,13 @@
                         </div>
                         <div>
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi dolor ex exercitationem molestias optio quo sit totam? Dolore ducimus, nam! Animi autem nam neque totam. Error magni pariatur perferendis unde.</p>
-                            <?php
-                                $listeProds = $objPdo->query('SELECT  *  FROM producteur');
-                                while ($row = $listeProds->fetch()) {
-                                    $id = $row['id_prod'];
-                                    echo "<div> <a href=\"shop-grid.php?id=$id\"> </div>";
-                                }
-                            ?>
+<!--                            --><?php
+//                                $listeProds = $objPdo->query('SELECT  *  FROM producteur');
+//                                while ($row = $listeProds->fetch()) {
+//                                    $id = $row['id_prod'];
+//                                    echo "<div> <a href=\"shop-grid.php?id=$id\"> </div>";
+//                                }
+//                            ?>
                         </div>
                     </div>
                 </div>

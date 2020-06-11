@@ -417,21 +417,27 @@
                         <h2>Rajoutez un article</h2>
                     </div>
                     <div class="row">
-                        <form method="post">
-                            <select name="produit">
-                                <option value="prod-lait"> yaourts</option>
-                                <option value="légumes"> fromages</option>
-                                </option>
-                            </select>
-                            <select name="produit">
-                                <option value="prod-lait"> courgette</option>
-                                <option value="légumes"> aubergines</option>
-                                </option>
-                            </select>
-                            <span class="error"> <?php echo ""; ?></span><br><br>
-                            <span class="error"> <?php echo ""; ?></span><br></p>
-                            <input type="submit" value="Ajoutez cet article" name="posterSujet"/>
-                        </form>
+                        <div class="col-lg-9 col-md-7">
+                            <form method="post">
+                                <input type="submit" value="légumes" name="legumes"/>
+                                <input type="submit" value="fruits" name="fruits"/>
+                                <input type="submit" value="viande" name="viande"/>
+                                <input type="submit" value="céréales" name="cereales"/>
+                                <input type="submit" value="produits laitiers" name="prodLait"/>
+                                <!--                         <input type="submit" value="Ajoutez cet article" name="posterSujet"/>-->
+                            </form>
+                        </div> <br>
+                        <div class="col-lg-9 col-md-7">
+                        <?php
+                        if (isset($_POST["legumes"])) {
+                            echo "<input type=\"submit\" value=\"haricots\" name=\"fruits\"/>
+                            <input type=\"submit\" value=\"aubergines\" name=\"viande\"/>
+                            <input type=\"submit\" value=\"poireau\" name=\"cereales\"/>
+                            <input type=\"submit\" value=\"carotte\" name=\"prodLait\"/>";
+                        };
+                        ?></div>
+
+
                     </div>
                 </div>
                 <!-- end section principale -->
