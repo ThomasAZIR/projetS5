@@ -1,4 +1,20 @@
-<?php session_start();?>
+<?php session_start();
+include "connexion.php";
+?>
+<?php
+if(isset($_POST["titre"]) && isset($_POST["texte"])){
+    $ajouterSujet = $objPdo->prepare('INSERT INTO Message(id_auteur, titre_message, message, date_message) VALUES (?,?,?,?)');
+    $ajouterSujet->bindValue(1,(int) $_SESSION['id_prod']);
+    $ajouterSujet->bindValue(2, utf8_decode($_POST['titre']));
+    $ajouterSujet->bindValue(3, utf8_decode($_POST['texte']));
+    $date = date('Y-m-d', time());
+    $ajouterSujet->bindValue(4,$date );
+    $ajouterSujet->execute();
+    $ajouterSujet->closeCursor();
+    var_dump($_SESSION['id_prod'],utf8_decode($_POST['titre']),utf8_decode($_POST['texte']),$date);
+    header('location:blog.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -304,118 +320,38 @@
                     </div>
                 </div>
             </div>
+
             <div class="col-lg-8 col-md-7">
+                <div class="col-lg-12">
+                    <form action="blog.php" method="post">
+                        <p>Titre du message :<br>
+                            <input type="text" name="titre"><br><br>
+                           Message : <textarea cols="80" rows="5" name="texte"></textarea><br></p>
+                        <input type="submit" value="Poster" name="poster"/>
+                    </form>
+
+                </div>
                 <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-6">
-                        <div class="blog__item">
-                            <div class="blog__item__pic">
-                                <img src="img/blog/blog-2.jpg" alt="">
-                            </div>
-                            <div class="blog__item__text">
-                                <ul>
-                                    <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-                                    <li><i class="fa fa-comment-o"></i> 5</li>
-                                </ul>
-                                <h5><a href="#">6 ways to prepare breakfast for 30</a></h5>
-                                <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam
-                                    quaerat </p>
-                                <a href="#" class="blog__btn">READ MORE <span class="arrow_right"></span></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6">
-                        <div class="blog__item">
-                            <div class="blog__item__pic">
-                                <img src="img/blog/blog-3.jpg" alt="">
-                            </div>
-                            <div class="blog__item__text">
-                                <ul>
-                                    <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-                                    <li><i class="fa fa-comment-o"></i> 5</li>
-                                </ul>
-                                <h5><a href="#">Visit the clean farm in the US</a></h5>
-                                <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam
-                                    quaerat </p>
-                                <a href="#" class="blog__btn">READ MORE <span class="arrow_right"></span></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6">
-                        <div class="blog__item">
-                            <div class="blog__item__pic">
-                                <img src="img/blog/blog-1.jpg" alt="">
-                            </div>
-                            <div class="blog__item__text">
-                                <ul>
-                                    <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-                                    <li><i class="fa fa-comment-o"></i> 5</li>
-                                </ul>
-                                <h5><a href="#">Cooking tips make cooking simple</a></h5>
-                                <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam
-                                    quaerat </p>
-                                <a href="#" class="blog__btn">READ MORE <span class="arrow_right"></span></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6">
-                        <div class="blog__item">
-                            <div class="blog__item__pic">
-                                <img src="img/blog/blog-4.jpg" alt="">
-                            </div>
-                            <div class="blog__item__text">
-                                <ul>
-                                    <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-                                    <li><i class="fa fa-comment-o"></i> 5</li>
-                                </ul>
-                                <h5><a href="#">Cooking tips make cooking simple</a></h5>
-                                <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam
-                                    quaerat </p>
-                                <a href="#" class="blog__btn">READ MORE <span class="arrow_right"></span></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6">
-                        <div class="blog__item">
-                            <div class="blog__item__pic">
-                                <img src="img/blog/blog-4.jpg" alt="">
-                            </div>
-                            <div class="blog__item__text">
-                                <ul>
-                                    <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-                                    <li><i class="fa fa-comment-o"></i> 5</li>
-                                </ul>
-                                <h5><a href="#">The Moment You Need To Remove Garlic From The Menu</a></h5>
-                                <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam
-                                    quaerat </p>
-                                <a href="#" class="blog__btn">READ MORE <span class="arrow_right"></span></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6">
-                        <div class="blog__item">
-                            <div class="blog__item__pic">
-                                <img src="img/blog/blog-6.jpg" alt="">
-                            </div>
-                            <div class="blog__item__text">
-                                <ul>
-                                    <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-                                    <li><i class="fa fa-comment-o"></i> 5</li>
-                                </ul>
-                                <h5><a href="#">Cooking tips make cooking simple</a></h5>
-                                <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam
-                                    quaerat </p>
-                                <a href="#" class="blog__btn">READ MORE <span class="arrow_right"></span></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-12">
-                        <div class="product__pagination blog__pagination">
-                            <a href="#">1</a>
-                            <a href="#">2</a>
-                            <a href="#">3</a>
-                            <a href="#"><i class="fa fa-long-arrow-right"></i></a>
-                        </div>
-                    </div>
+
+                        <?php
+                        $test = $objPdo->prepare('SELECT titre_message,message,date_message, nom_prod,mail_prod,prenom_prod
+                                    FROM Message, Producteur WHERE id_prod=id_auteur');
+                        $test->execute();
+                        while ($row = $test->fetch()) {
+                            echo '<div class="col-lg-6 col-md-6 col-sm-6">
+                                    <div class="blog__item">
+                                    <div class="blog__item__text">
+                                    <ul>
+                                        <li><i class="fa fa-calendar-o"></i>';
+                            echo utf8_encode($row["date_message"]).'</li>';
+                            echo '<li><i class="fa fa-comment-o"></i>';
+                            echo utf8_encode($row["nom_prod"]).' '.utf8_encode($row["prenom_prod"]).'</li></ul><h5><b>';
+                            echo utf8_encode($row["titre_message"]).' </b></h5><p>';
+                            echo utf8_encode($row["message"]).' </p>
+                            </div></div></div>';
+                        }
+                        $test->closeCursor();
+                        ?>
                 </div>
             </div>
         </div>
