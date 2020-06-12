@@ -484,8 +484,6 @@
                 <!-- end section principale -->
 
 
-
-
                 <!-- choix par producteurs -->
                 <div class="col-lg-9 col-md-7">
                     <div class="product__discount">
@@ -493,14 +491,19 @@
                             <h2>Choisissez un producteurs</h2>
                         </div>
                         <div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi dolor ex exercitationem molestias optio quo sit totam? Dolore ducimus, nam! Animi autem nam neque totam. Error magni pariatur perferendis unde.</p>
-<!--                            --><?php
-//                                $listeProds = $objPdo->query('SELECT  *  FROM producteur');
-//                                while ($row = $listeProds->fetch()) {
-//                                    $id = $row['id_prod'];
-//                                    echo "<div> <a href=\"shop-grid.php?id=$id\"> </div>";
-//                                }
-//                            ?>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi dolor ex exercitationem
+                                molestias optio quo sit totam? Dolore ducimus, nam! Animi autem nam neque totam. Error
+                                magni pariatur perferendis unde.</p>
+                            <?php
+                            $listeProds = $objPdo->query('SELECT  *  FROM Producteur');
+                            while ($row = $listeProds->fetch()) {
+                                $id = $row['id_prod'];
+
+                                echo "<div> <a href=\"shop-grid.php?id=$id\"> producteur numéro $id </a></div>";
+                                echo $id;
+                            }
+                            $listeProds->closeCursor();
+                            ?>
                         </div>
                     </div>
                 </div>
