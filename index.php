@@ -10,7 +10,7 @@ include "connexion.php" ?>
     <meta name="keywords" content="Ogani, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ogani | Template</title>
+    <title> AGREEN</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
@@ -62,7 +62,7 @@ include "connexion.php" ?>
     </div>
     <nav class="humberger__menu__nav mobile-menu">
         <ul>
-            <li class="active"><a href="./index.php">Home</a></li>
+            <li class="active"><a href="./index.php">Accueil</a></li>
             <li><a href="./shop-grid.php">Shop</a></li>
             <li><a href="#">Pages</a>
                 <ul class="header__menu__dropdown">
@@ -108,7 +108,7 @@ include "connexion.php" ?>
                                         echo "qui êtes vous ? :  <input type=\"submit\" value=\"Client\" onclick=\"window . location . href = 'login.php?statut=Client'; \"  />  
                            <input type=\"submit\" value=\"Producteur\" onclick=\"window . location . href = 'login.php?statut=Producteur';\"/>";
                                     } else {
-                                        echo "Welcome " . "<input type=\"submit\" value=\"Deconnexion\" onclick=\"window . location . href = 'logout.php';\"/>";
+                                        echo "Bienvenue " . "<input type=\"submit\" value=\"Deconnexion\" onclick=\"window . location . href = 'logout.php';\"/>";
                                     }
                                     ?>
                                 </div>
@@ -149,32 +149,35 @@ include "connexion.php" ?>
             <div class="col-lg-6">
                 <nav class="header__menu">
                     <ul>
-                        <li class="active"><a href="./index.php">Home</a></li>
+                        <li class="active"><a href="./index.php">Accueil</a></li>
                         <?php
-                            if (isset($_SESSION['email'])) {
-                                if ($_SESSION["statut"] == "Client") {
-                                    echo "<li><a href=\"./shop-grid.php\">Shop</a></li>";
-                                }
-                                elseif ($_SESSION["statut"] == "Producteur") {
-                                    echo "<li><a href=\"./shop-prod.php\">Shop</a></li>";
-                                }
+                        if (isset($_SESSION['email'])) {
+                            if ($_SESSION["statut"] == "Client") {
+                                echo "<li><a href=\"./shop-grid.php\">Magasin</a></li>";
+                            } elseif ($_SESSION["statut"] == "Producteur") {
+                                echo "<li><a href=\"./shop-prod.php\">Magasin</a></li>";
                             }
-                            else {
-                                echo "<li><a href=\"./shop-grid.php\">Shop</a></li>";
-                            }
-                        ?>
+                        } else {
+                            echo "<li><a href=\"./shop-grid.php\">Magasin</a></li>";
+                        }
 
-                        <li><a href="./blog.php">Blog</a></li>
+                        if (isset($_SESSION['email'])) {
+                            if ($_SESSION['statut'] == "Producteur") {
+                                echo "<li><a href=\"./blog.php\">Blog</a></li>";
+                            }
+                        }
+                        ?>
                         <li><a href="./contact.php">Contact</a></li>
                         <?php
                         if (!isset($_SESSION['email'])) {
-                        echo "
+                            echo "
                              <li><a href=\"#\">S'identifier</a>
                                 <ul class=\"header__menu__dropdown\">
                                     <li><a href=\"./login.php?statut=Client\">Client</a></li>
                                     <li><a href=\"./login.php?statut=Producteur\">Producteur</a></li>
                                 </ul>
-                            </li>";}
+                            </li>";
+                        }
                         ?>
                     </ul>
                 </nav>
@@ -191,20 +194,14 @@ include "connexion.php" ?>
                 <div class="hero__categories">
                     <div class="hero__categories__all">
                         <i class="fa fa-bars"></i>
-                        <span>All departments</span>
+                        <span>Tous les produits</span>
                     </div>
                     <ul>
-                        <li><a href="#">Fresh Meat</a></li>
-                        <li><a href="#">Vegetables</a></li>
-                        <li><a href="#">Fruit & Nut Gifts</a></li>
-                        <li><a href="#">Fresh Berries</a></li>
-                        <li><a href="#">Ocean Foods</a></li>
-                        <li><a href="#">Butter & Eggs</a></li>
-                        <li><a href="#">Fastfood</a></li>
-                        <li><a href="#">Fresh Onion</a></li>
-                        <li><a href="#">Papayaya & Crisps</a></li>
-                        <li><a href="#">Oatmeal</a></li>
-                        <li><a href="#">Fresh Bananas</a></li>
+                        <li><a href="#">Céréales</a></li>
+                        <li><a href="#">Produits laitiers</a></li>
+                        <li><a href="#">Viandes</a></li>
+                        <li><a href="#">Fruits</a></li>
+                        <li><a href="#">Légumes</a></li>
                     </ul>
                 </div>
             </div>
@@ -213,29 +210,32 @@ include "connexion.php" ?>
                     <div class="hero__search__form">
                         <form action="#">
                             <div class="hero__search__categories">
-                                All Categories
+                                Toutes les catégories
                                 <span class="arrow_carrot-down"></span>
                             </div>
-                            <input type="text" placeholder="What do yo u need?">
-                            <button type="submit" class="site-btn">SEARCH</button>
+                            <input type="text" placeholder="De quoi avez vous besoin?">
+                            <button type="submit" class="site-btn">RECHERCHER</button>
                         </form>
                     </div>
                     <div class="hero__search__phone">
                         <div class="hero__search__phone__icon">
-                            <i class="fa fa-phone"></i>
+                            <a href="panier.php">
+                                <img src="img/panier.png">
+                            </a>
                         </div>
                         <div class="hero__search__phone__text">
-                            <h5>+65 11.188.888</h5>
-                            <span>support 24/7 time</span>
+                            <a href="panier.php">
+                                <h5>Votre panier</h5>
+                            </a>
                         </div>
                     </div>
                 </div>
                 <div class="hero__item set-bg" data-setbg="img/hero/banner.jpg">
                     <div class="hero__text">
-                        <span>FRUIT FRESH</span>
-                        <h2>Vegetable <br/>100% Organic</h2>
-                        <p>Free Pickup and Delivery Available</p>
-                        <a href="#" class="primary-btn">SHOP NOW</a>
+                        <span>FRUITS FRAIS</span>
+                        <h2> Légumes<br/>100% BIO</h2>
+                        <p>Commandes gratuites</p>
+                        <a href="#" class="primary-btn">ACHETER MAINTENANT</a>
                     </div>
                 </div>
             </div>
@@ -250,28 +250,28 @@ include "connexion.php" ?>
         <div class="row">
             <div class="categories__slider owl-carousel">
                 <div class="col-lg-3">
-                    <div class="categories__item set-bg" data-setbg="img/categories/cat-1.jpg">
-                        <h5><a href="#">Fresh Fruit</a></h5>
+                    <div class="categories__item set-bg" data-setbg="img/product/product-14.jpg">
+                        <h5><a href="#">Céréales</a></h5>
                     </div>
                 </div>
                 <div class="col-lg-3">
-                    <div class="categories__item set-bg" data-setbg="img/categories/cat-2.jpg">
-                        <h5><a href="#">Dried Fruit</a></h5>
+                    <div class="categories__item set-bg" data-setbg="img/product/product-13.jpg">
+                        <h5><a href="#">Produits laitiers</a></h5>
                     </div>
                 </div>
                 <div class="col-lg-3">
-                    <div class="categories__item set-bg" data-setbg="img/categories/cat-3.jpg">
-                        <h5><a href="#">Vegetables</a></h5>
+                    <div class="categories__item set-bg" data-setbg="img/product/product-12.jpg">
+                        <h5><a href="#">Fruits</a></h5>
                     </div>
                 </div>
                 <div class="col-lg-3">
-                    <div class="categories__item set-bg" data-setbg="img/categories/cat-4.jpg">
-                        <h5><a href="#">drink fruits</a></h5>
+                    <div class="categories__item set-bg" data-setbg="img/product/discount/pd-2.jpg">
+                        <h5><a href="#">Légumes</a></h5>
                     </div>
                 </div>
                 <div class="col-lg-3">
-                    <div class="categories__item set-bg" data-setbg="img/categories/cat-5.jpg">
-                        <h5><a href="#">drink fruits</a></h5>
+                    <div class="categories__item set-bg" data-setbg="img/product/product-1.jpg">
+                        <h5><a href="#">Viandes</a></h5>
                     </div>
                 </div>
             </div>
@@ -280,170 +280,6 @@ include "connexion.php" ?>
 </section>
 <!-- Categories Section End -->
 
-<!-- Featured Section Begin -->
-<section class="featured spad">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="section-title">
-                    <h2>Featured Product</h2>
-                </div>
-                <div class="featured__controls">
-                    <ul>
-                        <li class="active" data-filter="*">All</li>
-                        <li data-filter=".oranges">Oranges</li>
-                        <li data-filter=".fresh-meat">Fresh Meat</li>
-                        <li data-filter=".vegetables">Vegetables</li>
-                        <li data-filter=".fastfood">Fastfood</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="row featured__filter">
-            <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
-                <div class="featured__item">
-                    <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-1.jpg">
-                        <ul class="featured__item__pic__hover">
-                            <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                            <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="featured__item__text">
-                        <h6><a href="#">Crab Pool Security</a></h6>
-                        <h5>$30.00</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 mix vegetables fastfood">
-                <div class="featured__item">
-                    <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-2.jpg">
-                        <ul class="featured__item__pic__hover">
-                            <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                            <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="featured__item__text">
-                        <h6><a href="#">Crab Pool Security</a></h6>
-                        <h5>$30.00</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 mix vegetables fresh-meat">
-                <div class="featured__item">
-                    <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-3.jpg">
-                        <ul class="featured__item__pic__hover">
-                            <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                            <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="featured__item__text">
-                        <h6><a href="#">Crab Pool Security</a></h6>
-                        <h5>$30.00</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 mix fastfood oranges">
-                <div class="featured__item">
-                    <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-4.jpg">
-                        <ul class="featured__item__pic__hover">
-                            <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                            <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="featured__item__text">
-                        <h6><a href="#">Crab Pool Security</a></h6>
-                        <h5>$30.00</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
-                <div class="featured__item">
-                    <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-5.jpg">
-                        <ul class="featured__item__pic__hover">
-                            <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                            <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="featured__item__text">
-                        <h6><a href="#">Crab Pool Security</a></h6>
-                        <h5>$30.00</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fastfood">
-                <div class="featured__item">
-                    <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-6.jpg">
-                        <ul class="featured__item__pic__hover">
-                            <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                            <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="featured__item__text">
-                        <h6><a href="#">Crab Pool Security</a></h6>
-                        <h5>$30.00</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
-                <div class="featured__item">
-                    <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-7.jpg">
-                        <ul class="featured__item__pic__hover">
-                            <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                            <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="featured__item__text">
-                        <h6><a href="#">Crab Pool Security</a></h6>
-                        <h5>$30.00</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 mix fastfood vegetables">
-                <div class="featured__item">
-                    <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-8.jpg">
-                        <ul class="featured__item__pic__hover">
-                            <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                            <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="featured__item__text">
-                        <h6><a href="#">Crab Pool Security</a></h6>
-                        <h5>$30.00</h5>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Featured Section End -->
-
-<!-- Banner Begin -->
-<div class="banner">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-6">
-                <div class="banner__pic">
-                    <img src="img/banner/banner-1.jpg" alt="">
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-6 col-sm-6">
-                <div class="banner__pic">
-                    <img src="img/banner/banner-2.jpg" alt="">
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Banner End -->
-
 
 <!-- Blog Section Begin -->
 <section class="from-blog spad">
@@ -451,7 +287,9 @@ include "connexion.php" ?>
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title from-blog__title">
-                    <h2>From The Blog</h2>
+                    <h2>Le blog</h2><br>
+                    <div>Le blog est un espace de discution pour les producteurs, rejoingez le vite pour discuter !
+                    </div>
                 </div>
             </div>
         </div>
@@ -463,11 +301,13 @@ include "connexion.php" ?>
                     </div>
                     <div class="blog__item__text">
                         <ul>
-                            <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-                            <li><i class="fa fa-comment-o"></i> 5</li>
+                            <li><i class="fa fa-calendar-o"></i> 4 Mars 2010</li>
+                            <li><i class="fa fa-comment-o"></i> 2</li>
                         </ul>
-                        <h5><a href="#">Cooking tips make cooking simple</a></h5>
-                        <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>
+                        <h5><a href="#">Les pesticides à faibles doses sont indispensables </a></h5>
+                        <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis dolorum eos,
+                            fuga fugit necessitatibus officia optio, perspiciatis placeat quam sapiente voluptatum.
+                            Consequuntur facere inventore officiis reiciendis! Earum, suscipit voluptatum! </p>
                     </div>
                 </div>
             </div>
@@ -478,11 +318,13 @@ include "connexion.php" ?>
                     </div>
                     <div class="blog__item__text">
                         <ul>
-                            <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-                            <li><i class="fa fa-comment-o"></i> 5</li>
+                            <li><i class="fa fa-calendar-o"></i> 2 Avril 2020</li>
+                            <li><i class="fa fa-comment-o"></i> 3</li>
                         </ul>
-                        <h5><a href="#">6 ways to prepare breakfast for 30</a></h5>
-                        <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>
+                        <h5><a href="#">les carottes sont cuites</a></h5>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ad aliquid aut doloribus expedita
+                            hic ipsa magnam maiores molestiae nobis optio qui quidem reprehenderit sapiente suscipit
+                            totam, vel veniam voluptas? </p>
                     </div>
                 </div>
             </div>
@@ -493,11 +335,13 @@ include "connexion.php" ?>
                     </div>
                     <div class="blog__item__text">
                         <ul>
-                            <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-                            <li><i class="fa fa-comment-o"></i> 5</li>
+                            <li><i class="fa fa-calendar-o"></i> 11 Mai 2020</li>
+                            <li><i class="fa fa-comment-o"></i> 1</li>
                         </ul>
-                        <h5><a href="#">Visit the clean farm in the US</a></h5>
-                        <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>
+                        <h5><a href="#">Les serres espagnoles sont une abération de la nature</a></h5>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium ad adipisci aspernatur
+                            assumenda autem dolorem doloremque, eveniet, ipsa iste magni neque omnis perspiciatis quas
+                            qui quia quod recusandae sit voluptatum? </p>
                     </div>
                 </div>
             </div>
@@ -517,8 +361,8 @@ include "connexion.php" ?>
                     </div>
                     <ul>
 
-                        <li>Numéro:  03 72 74 84 00</li>
-                        <li>Adresse : Ile du Saulcy. 57045 Metz </li>
+                        <li>Numéro: 03 72 74 84 00</li>
+                        <li>Adresse : Ile du Saulcy. 57045 Metz</li>
                     </ul>
                 </div>
             </div>

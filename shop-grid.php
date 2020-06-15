@@ -1,4 +1,36 @@
-<?php session_start(); ?>
+<?php session_start();
+include "connexion.php";
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+}
+
+//Ajout d'un élément au panier
+
+$produitPanier = array();
+
+function ajout($select)
+{
+    array_push($_SESSION['panier']['id_pdt'], $select['id_pdt']);
+    array_push($_SESSION['panier']['id_prod'], $select['id_prod']);
+    array_push($_SESSION['panier']['qte'], $select['qte']);
+    array_push($_SESSION['panier']['prix'], $select['prix']);
+}
+
+if (isset($_GET['idPdt'])) {
+    $idPdt = $_GET['idPdt'];
+    $rechercheProduit = $objPdo->query('SELECT * FROM Propose WHERE id_pdt=' . $idPdt . ' AND id_prod =' . $id);
+    while ($row = $rechercheProduit->fetch()) {
+        $produitPanier['id_pdt'] = $idPdt;
+        $produitPanier['id_prod'] = $id;
+        $produitPanier['qte'] = 1;
+        $produitPanier['prix'] = $row['prix_pdt'];
+        ajout($produitPanier);
+    }
+}
+//if (isset($_SESSION['panier'])) {
+//    var_dump($_SESSION['panier']);
+//}
+?>
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -8,7 +40,7 @@
     <meta name="keywords" content="Ogani, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ogani | Template</title>
+    <title> AGREEN</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
@@ -106,7 +138,7 @@
                                             echo "qui êtes vous ? :  <input type=\"submit\" value=\"Client\" onclick=\"window . location . href = 'login.php?statut=Client'; \"  />  
                            <input type=\"submit\" value=\"Producteur\" onclick=\"window . location . href = 'login.php?statut=Producteur';\"/>";
                                         } else {
-                                            echo "Welcome " . "<input type=\"submit\" value=\"Deconnexion\" onclick=\"window . location . href = 'logout.php';\"/>";
+                                            echo "Bienvenue " . "<input type=\"submit\" value=\"Deconnexion\" onclick=\"window . location . href = 'logout.php';\"/>";
                                         }
                                         ?>
                                     </div>
@@ -148,9 +180,8 @@
                 <div class="col-lg-6">
                     <nav class="header__menu">
                         <ul>
-                            <li><a href="./index.php">Home</a></li>
-                            <li class="active"><a href="./shop-grid.php">Shop</a></li>
-                            <li><a href="./blog.php">Blog</a></li>
+                            <li><a href="./index.php">Accueil</a></li>
+                            <li class="active"><a href="./shop-grid.php">Magasin</a></li>
                             <li><a href="./contact.php">Contact</a></li>
                             <?php
                             if (!isset($_SESSION['email'])) {
@@ -179,20 +210,14 @@
                 <div class="hero__categories">
                     <div class="hero__categories__all">
                         <i class="fa fa-bars"></i>
-                        <span>All departments</span>
+                        <span>Tous les produits</span>
                     </div>
                     <ul>
-                        <li><a href="#">Fresh Meat</a></li>
-                        <li><a href="#">Vegetables</a></li>
-                        <li><a href="#">Fruit & Nut Gifts</a></li>
-                        <li><a href="#">Fresh Berries</a></li>
-                        <li><a href="#">Ocean Foods</a></li>
-                        <li><a href="#">Butter & Eggs</a></li>
-                        <li><a href="#">Fastfood</a></li>
-                        <li><a href="#">Fresh Onion</a></li>
-                        <li><a href="#">Papayaya & Crisps</a></li>
-                        <li><a href="#">Oatmeal</a></li>
-                        <li><a href="#">Fresh Bananas</a></li>
+                        <li><a href="#">Céréales</a></li>
+                        <li><a href="#">Produits laitiers</a></li>
+                        <li><a href="#">Viandes</a></li>
+                        <li><a href="#">Fruits</a></li>
+                        <li><a href="#">Légumes</a></li>
                     </ul>
                 </div>
             </div>
@@ -201,20 +226,23 @@
                     <div class="hero__search__form">
                         <form action="#">
                             <div class="hero__search__categories">
-                                All Categories
+                                Toutes les catégories
                                 <span class="arrow_carrot-down"></span>
                             </div>
-                            <input type="text" placeholder="What do yo u need?">
-                            <button type="submit" class="site-btn">SEARCH</button>
+                            <input type="text" placeholder="De quoi avez vous besoin?">
+                            <button type="submit" class="site-btn">RECHERCHER</button>
                         </form>
                     </div>
                     <div class="hero__search__phone">
                         <div class="hero__search__phone__icon">
-                            <i class="fa fa-phone"></i>
+                            <a href="panier.php">
+                                <img src="img/panier.png">
+                            </a>
                         </div>
                         <div class="hero__search__phone__text">
-                            <h5>03 72 74 84 00</h5>
-                            <span>support 24/7 time</span>
+                            <a href="panier.php">
+                                <h5>Votre panier</h5>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -230,9 +258,9 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="breadcrumb__text">
-                    <h2>Agreen Shop</h2>
+                    <h2>Magasin</h2>
                     <div class="breadcrumb__option">
-                        <a href="./index.php">Home</a>
+                        <a href="./index.php">Accueil</a>
                         <span>Shop</span>
                     </div>
                 </div>
@@ -271,137 +299,6 @@
                                 <div class="price-input">
                                     <input type="text" id="minamount">
                                     <input type="text" id="maxamount">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="sidebar__item sidebar__item__color--option">
-                        <h4>Colors</h4>
-                        <div class="sidebar__item__color sidebar__item__color--white">
-                            <label for="white">
-                                White
-                                <input type="radio" id="white">
-                            </label>
-                        </div>
-                        <div class="sidebar__item__color sidebar__item__color--gray">
-                            <label for="gray">
-                                Gray
-                                <input type="radio" id="gray">
-                            </label>
-                        </div>
-                        <div class="sidebar__item__color sidebar__item__color--red">
-                            <label for="red">
-                                Red
-                                <input type="radio" id="red">
-                            </label>
-                        </div>
-                        <div class="sidebar__item__color sidebar__item__color--black">
-                            <label for="black">
-                                Black
-                                <input type="radio" id="black">
-                            </label>
-                        </div>
-                        <div class="sidebar__item__color sidebar__item__color--blue">
-                            <label for="blue">
-                                Blue
-                                <input type="radio" id="blue">
-                            </label>
-                        </div>
-                        <div class="sidebar__item__color sidebar__item__color--green">
-                            <label for="green">
-                                Green
-                                <input type="radio" id="green">
-                            </label>
-                        </div>
-                    </div>
-                    <div class="sidebar__item">
-                        <h4>Popular Size</h4>
-                        <div class="sidebar__item__size">
-                            <label for="large">
-                                Large
-                                <input type="radio" id="large">
-                            </label>
-                        </div>
-                        <div class="sidebar__item__size">
-                            <label for="medium">
-                                Medium
-                                <input type="radio" id="medium">
-                            </label>
-                        </div>
-                        <div class="sidebar__item__size">
-                            <label for="small">
-                                Small
-                                <input type="radio" id="small">
-                            </label>
-                        </div>
-                        <div class="sidebar__item__size">
-                            <label for="tiny">
-                                Tiny
-                                <input type="radio" id="tiny">
-                            </label>
-                        </div>
-                    </div>
-                    <div class="sidebar__item">
-                        <div class="latest-product__text">
-                            <h4>Latest Products</h4>
-                            <div class="latest-product__slider owl-carousel">
-                                <div class="latest-prdouct__slider__item">
-                                    <a href="#" class="latest-product__item">
-                                        <div class="latest-product__item__pic">
-                                            <img src="img/latest-product/lp-1.jpg" alt="">
-                                        </div>
-                                        <div class="latest-product__item__text">
-                                            <h6>Crab Pool Security</h6>
-                                            <span>$30.00</span>
-                                        </div>
-                                    </a>
-                                    <a href="#" class="latest-product__item">
-                                        <div class="latest-product__item__pic">
-                                            <img src="img/latest-product/lp-2.jpg" alt="">
-                                        </div>
-                                        <div class="latest-product__item__text">
-                                            <h6>Crab Pool Security</h6>
-                                            <span>$30.00</span>
-                                        </div>
-                                    </a>
-                                    <a href="#" class="latest-product__item">
-                                        <div class="latest-product__item__pic">
-                                            <img src="img/latest-product/lp-3.jpg" alt="">
-                                        </div>
-                                        <div class="latest-product__item__text">
-                                            <h6>Crab Pool Security</h6>
-                                            <span>$30.00</span>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="latest-prdouct__slider__item">
-                                    <a href="#" class="latest-product__item">
-                                        <div class="latest-product__item__pic">
-                                            <img src="img/latest-product/lp-1.jpg" alt="">
-                                        </div>
-                                        <div class="latest-product__item__text">
-                                            <h6>Crab Pool Security</h6>
-                                            <span>$30.00</span>
-                                        </div>
-                                    </a>
-                                    <a href="#" class="latest-product__item">
-                                        <div class="latest-product__item__pic">
-                                            <img src="img/latest-product/lp-2.jpg" alt="">
-                                        </div>
-                                        <div class="latest-product__item__text">
-                                            <h6>Crab Pool Security</h6>
-                                            <span>$30.00</span>
-                                        </div>
-                                    </a>
-                                    <a href="#" class="latest-product__item">
-                                        <div class="latest-product__item__pic">
-                                            <img src="img/latest-product/lp-3.jpg" alt="">
-                                        </div>
-                                        <div class="latest-product__item__text">
-                                            <h6>Crab Pool Security</h6>
-                                            <span>$30.00</span>
-                                        </div>
-                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -488,61 +385,43 @@
                 <div class="col-lg-9 col-md-7">
                     <div class="product__discount">
                         <div class="section-title product__discount__title">
-                            <h2>Choisissez un producteurs</h2>
+                            <p>Bienvenue dans la partie shopping d'Agreen, ici vous pourrez, en fonction de vos besoins
+                                et
+                                de vos envies, constituer votre panier avec tous les produits proposés par les
+                                producteurs.</p>
+                            <h2>Choisissez un producteur</h2>
                         </div>
                         <div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi dolor ex exercitationem
-                                molestias optio quo sit totam? Dolore ducimus, nam! Animi autem nam neque totam. Error
-                                magni pariatur perferendis unde.</p>
+                            <p>Dans cette section, vous pouvez choisir le producteur a qui vous voulez acheter vos
+                                produits.</p>
+
+                            <?php
+                            if (isset($_GET['id'])) {
+                                $prod = $objPdo->query('SELECT * FROM Producteur p, Boutique b WHERE p.id_prod = b.id_proprio AND id_proprio = ' . $id);
+                                while ($row = $prod->fetch()) {
+                                    echo "<div> Voici la liste des produits du producteur " . $row['nom_prod'] . ", propriétaire de la boutique : " . $row['nom_boutique'] . "</div>";
+                                }
+                                $prod->closeCursor();
+                                $pdts = $objPdo->query('SELECT * FROM Propose o, Produit u WHERE o.id_pdt = u.id_pdt AND o.id_prod =' . $id);
+                                while ($row = $pdts->fetch()) {
+                                    $idPdtTemp = $row['id_pdt'];
+                                    echo "<div>" . utf8_encode($row['lib_pdt']) . ", prix: " . $row['prix_pdt'] . " € unité.<a href='shop-grid.php?id=$id&idPdt=$idPdtTemp'> Rajouter au panier</a> </div>";
+                                }
+                                $pdts->closeCursor();
+                            }
+                            ?>
+
                             <?php
                             $listeProds = $objPdo->query('SELECT  *  FROM Producteur');
                             while ($row = $listeProds->fetch()) {
                                 $id = $row['id_prod'];
-
-                                echo "<div> <a href=\"shop-grid.php?id=$id\"> producteur numéro $id </a></div>";
-                                echo $id;
+                                echo "<div class='section-title product__discount__title'> <h2>" . $row['nom_prod'] . " </h2><br><br><a href=\"shop-grid.php?id=$id\">Voir ce producteur</a> <p> </p></div>";
                             }
                             $listeProds->closeCursor();
                             ?>
                         </div>
                     </div>
                 </div>
-
-
-                <!-- Les catégories -->
-                <div class="col-lg-9 col-md-7">
-                    <div class="product__discount">
-                        <div class="section-title product__discount__title">
-                            <h2>Les céréales</h2>
-                        </div>
-                        <div></div>
-                    </div>
-                </div>
-                <div class="col-lg-9 col-md-7">
-                    <div class="product__discount">
-                        <div class="section-title product__discount__title">
-                            <h2>Les Produits laitiers</h2>
-                        </div>
-                        <div></div>
-                    </div>
-                </div>
-                <div class="col-lg-9 col-md-7">
-                    <div class="product__discount">
-                        <div class="section-title product__discount__title">
-                            <h2>Les </h2>
-                        </div>
-                        <div></div>
-                    </div>
-                </div>
-                <div class="col-lg-9 col-md-7">
-                    <div class="product__discount">
-                        <div class="section-title product__discount__title">
-                            <h2>Les céréales</h2>
-                        </div>
-                        <div></div>
-                    </div>
-                </div>
-
             </div>
         </div>
     </div>

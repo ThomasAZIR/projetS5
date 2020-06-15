@@ -114,7 +114,7 @@ if (isset($_POST["validate"])) {
     <meta name="keywords" content="Ogani, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ogani | Template</title>
+    <title> AGREEN</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
@@ -200,34 +200,36 @@ if (isset($_POST["validate"])) {
     <div class="header__top">
         <div class="container">
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-6 col-md-6">
                     <div class="header__top__left">
                         <ul>
-                            <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
-                            <li>Free Shipping for all Order of $99</li>
+                            <li><i> <!-- class="fa fa-envelope"> --> Université de lorraine, IUT de metz </i></li>
+                            <li>
+                                <div class="header__top__right__auth">
+                                    Bienvenue
+                                </div>
+                            </li>
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-6 col-md-6">
                     <div class="header__top__right">
                         <div class="header__top__right__social">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-linkedin"></i></a>
-                            <a href="#"><i class="fa fa-pinterest-p"></i></a>
+                            <a href="https://fr-fr.facebook.com/IUT.metz.officiel/"><i class="fa fa-facebook"></i></a>
+                            <a href="https://twitter.com/univ_lorraine?lang=fr"><i class="fa fa-twitter"></i></a>
+                            <a href="https://www.instagram.com/iutmetz/"><i class="fa fa-instagram"></i></a>
+
                         </div>
                         <div class="header__top__right__language">
-                            <img src="img/language.png" alt="">
-                            <div>English</div>
+                            <img src="img/drapeaufr.png" alt="">
+                            <div>Français</div>
                             <span class="arrow_carrot-down"></span>
                             <ul>
-                                <li><a href="#">Spanis</a></li>
+                                <li><a href="#">French</a></li>
                                 <li><a href="#">English</a></li>
                             </ul>
                         </div>
-                        <div class="header__top__right__auth">
-                            <a href="#"><i class="fa fa-user"></i> Login</a>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -243,90 +245,42 @@ if (isset($_POST["validate"])) {
             <div class="col-lg-6">
                 <nav class="header__menu">
                     <ul>
-                        <li><a href="./index.php">Home</a></li>
-                        <li><a href="./shop-grid.php">Shop</a></li>
-                        <li><a href="#">Pages</a>
-                            <ul class="header__menu__dropdown">
-                                <li><a href="./shop-details.php">Shop Details</a></li>
-                                <li><a href="./shoping-cart.php">Shoping Cart</a></li>
-                                <li><a href="./checkout.php">Check Out</a></li>
-                                <li><a href="./blog-details.php">Blog Details</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="./blog.php">Blog</a></li>
-                        <li class="active"><a href="./contact.php">Contact</a></li>
+                        <li class="active"><a href="./index.php">Accueil</a></li>
+                        <?php
+                        if (isset($_SESSION['email'])) {
+                            if ($_SESSION["statut"] == "Client") {
+                                echo "<li><a href=\"./shop-grid.php\">Magasin</a></li>";
+                            } elseif ($_SESSION["statut"] == "Producteur") {
+                                echo "<li><a href=\"./shop-prod.php\">Magasin</a></li>";
+                            }
+                        } else {
+                            echo "<li><a href=\"./shop-grid.php\">Magasin</a></li>";
+                        }
+
+                        if (isset($_SESSION['email'])) {
+                            if ($_SESSION['statut'] == "Producteur") {
+                                echo "<li><a href=\"./blog.php\">Blog</a></li>";
+                            }
+                        }
+                        ?>
+                        <li><a href="./contact.php">Contact</a></li>
+                        <?php
+                        if (!isset($_SESSION['email'])) {
+                            echo "
+                             <li><a href=\"#\">S'identifier</a>
+                                <ul class=\"header__menu__dropdown\">
+                                    <li><a href=\"./login.php?statut=Client\">Client</a></li>
+                                    <li><a href=\"./login.php?statut=Producteur\">Producteur</a></li>
+                                </ul>
+                            </li>";
+                        }
+                        ?>
                     </ul>
                 </nav>
             </div>
-            <div class="col-lg-3">
-                <div class="header__cart">
-                    <ul>
-                        <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                        <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
-                    </ul>
-                    <div class="header__cart__price">item: <span>$150.00</span></div>
-                </div>
-            </div>
         </div>
-        <div class="humberger__open">
-            <i class="fa fa-bars"></i>
-        </div>
-    </div>
 </header>
 <!-- Header Section End -->
-
-<!-- Hero Section Begin -->
-<section class="hero hero-normal">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-3">
-                <div class="hero__categories">
-                    <div class="hero__categories__all">
-                        <i class="fa fa-bars"></i>
-                        <span>All departments</span>
-                    </div>
-                    <ul>
-                        <li><a href="#">Fresh Meat</a></li>
-                        <li><a href="#">Vegetables</a></li>
-                        <li><a href="#">Fruit & Nut Gifts</a></li>
-                        <li><a href="#">Fresh Berries</a></li>
-                        <li><a href="#">Ocean Foods</a></li>
-                        <li><a href="#">Butter & Eggs</a></li>
-                        <li><a href="#">Fastfood</a></li>
-                        <li><a href="#">Fresh Onion</a></li>
-                        <li><a href="#">Papayaya & Crisps</a></li>
-                        <li><a href="#">Oatmeal</a></li>
-                        <li><a href="#">Fresh Bananas</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-9">
-                <div class="hero__search">
-                    <div class="hero__search__form">
-                        <form action="#">
-                            <div class="hero__search__categories">
-                                All Categories
-                                <span class="arrow_carrot-down"></span>
-                            </div>
-                            <input type="text" placeholder="What do yo u need?">
-                            <button type="submit" class="site-btn">SEARCH</button>
-                        </form>
-                    </div>
-                    <div class="hero__search__phone">
-                        <div class="hero__search__phone__icon">
-                            <i class="fa fa-phone"></i>
-                        </div>
-                        <div class="hero__search__phone__text">
-                            <h5>+65 11.188.888</h5>
-                            <span>support 24/7 time</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Hero Section End -->
 
 <!-- Breadcrumb Section Begin -->
 <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
@@ -334,7 +288,7 @@ if (isset($_POST["validate"])) {
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="breadcrumb__text">
-                    <h2>S'inscire</h2>
+                    <h2>S'inscrire</h2>
                     <div class="breadcrumb__option">
                         <a href="./index.php">Accueil</a>
                         <span>S'inscrire</span>

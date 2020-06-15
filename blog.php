@@ -2,16 +2,16 @@
 include "connexion.php";
 ?>
 <?php
-if(isset($_POST["titre"]) && isset($_POST["texte"])){
+if (isset($_POST["titre"]) && isset($_POST["texte"])) {
     $ajouterSujet = $objPdo->prepare('INSERT INTO Message(id_auteur, titre_message, message, date_message) VALUES (?,?,?,?)');
-    $ajouterSujet->bindValue(1,(int) $_SESSION['id_prod']);
+    $ajouterSujet->bindValue(1, (int)$_SESSION['id_prod']);
     $ajouterSujet->bindValue(2, utf8_decode($_POST['titre']));
     $ajouterSujet->bindValue(3, utf8_decode($_POST['texte']));
     $date = date('Y-m-d', time());
-    $ajouterSujet->bindValue(4,$date );
+    $ajouterSujet->bindValue(4, $date);
     $ajouterSujet->execute();
     $ajouterSujet->closeCursor();
-    var_dump($_SESSION['id_prod'],utf8_decode($_POST['titre']),utf8_decode($_POST['texte']),$date);
+    var_dump($_SESSION['id_prod'], utf8_decode($_POST['titre']), utf8_decode($_POST['texte']), $date);
     header('location:blog.php');
 }
 ?>
@@ -24,7 +24,7 @@ if(isset($_POST["titre"]) && isset($_POST["texte"])){
     <meta name="keywords" content="Ogani, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ogani | Template</title>
+    <title> AGREEN</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
@@ -75,8 +75,8 @@ if(isset($_POST["titre"]) && isset($_POST["texte"])){
     </div>
     <nav class="humberger__menu__nav mobile-menu">
         <ul>
-            <li class="active"><a href="./index.php">Home</a></li>
-            <li><a href="./shop-grid.php">Shop</a></li>
+            <li class="active"><a href="./index.php">Accueil</a></li>
+            <li><a href="./shop-prod.php">Magasin</a></li>
             <li><a href="#">Pages</a>
                 <ul class="header__menu__dropdown">
                     <li><a href="./shop-details.php">Shop Details</a></li>
@@ -113,17 +113,19 @@ if(isset($_POST["titre"]) && isset($_POST["texte"])){
                 <div class="col-lg-6 col-md-6">
                     <div class="header__top__left">
                         <ul>
-                            <li>  <i> <!-- class="fa fa-envelope"> --> Université de lorraine, IUT de metz </i>  </li>
-                            <li>                            <div class="header__top__right__auth">
+                            <li><i> <!-- class="fa fa-envelope"> --> Université de lorraine, IUT de metz </i></li>
+                            <li>
+                                <div class="header__top__right__auth">
                                     <?php
                                     if (!isset($_SESSION['email'])) {
                                         echo "qui êtes vous ? :  <input type=\"submit\" value=\"Client\" onclick=\"window . location . href = 'login.php?statut=Client'; \"  />  
                            <input type=\"submit\" value=\"Producteur\" onclick=\"window . location . href = 'login.php?statut=Producteur';\"/>";
                                     } else {
-                                        echo "Welcome " . "<input type=\"submit\" value=\"Deconnexion\" onclick=\"window . location . href = 'logout.php';\"/>";
+                                        echo "Bienvenue " . "<input type=\"submit\" value=\"Deconnexion\" onclick=\"window . location . href = 'logout.php';\"/>";
                                     }
                                     ?>
-                                </div></li>
+                                </div>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -160,8 +162,8 @@ if(isset($_POST["titre"]) && isset($_POST["texte"])){
             <div class="col-lg-6">
                 <nav class="header__menu">
                     <ul>
-                        <li><a href="./index.php">Home</a></li>
-                        <li><a href="./shop-grid.php">Shop</a></li>
+                        <li><a href="./index.php">Accueil</a></li>
+                        <li><a href="./shop-prod.php">Magasin</a></li>
                         <li class="active"><a href="./blog.php">Blog</a></li>
                         <li><a href="./contact.php">Contact</a></li>
                         <?php
@@ -172,7 +174,8 @@ if(isset($_POST["titre"]) && isset($_POST["texte"])){
                                     <li><a href=\"./login.php?statut=Client\">Client</a></li>
                                     <li><a href=\"./login.php?statut=Producteur\">Producteur</a></li>
                                 </ul>
-                            </li>";}
+                            </li>";
+                        }
 
                         ?>
                     </ul>
@@ -182,59 +185,6 @@ if(isset($_POST["titre"]) && isset($_POST["texte"])){
 </header>
 <!-- Header Section End -->
 
-<!-- Hero Section Begin -->
-<section class="hero hero-normal">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-3">
-                <div class="hero__categories">
-                    <div class="hero__categories__all">
-                        <i class="fa fa-bars"></i>
-                        <span>All departments</span>
-                    </div>
-                    <ul>
-                        <li><a href="#">Fresh Meat</a></li>
-                        <li><a href="#">Vegetables</a></li>
-                        <li><a href="#">Fruit & Nut Gifts</a></li>
-                        <li><a href="#">Fresh Berries</a></li>
-                        <li><a href="#">Ocean Foods</a></li>
-                        <li><a href="#">Butter & Eggs</a></li>
-                        <li><a href="#">Fastfood</a></li>
-                        <li><a href="#">Fresh Onion</a></li>
-                        <li><a href="#">Papayaya & Crisps</a></li>
-                        <li><a href="#">Oatmeal</a></li>
-                        <li><a href="#">Fresh Bananas</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-9">
-                <div class="hero__search">
-                    <div class="hero__search__form">
-                        <form action="#">
-                            <div class="hero__search__categories">
-                                All Categories
-                                <span class="arrow_carrot-down"></span>
-                            </div>
-                            <input type="text" placeholder="What do yo u need?">
-                            <button type="submit" class="site-btn">SEARCH</button>
-                        </form>
-                    </div>
-                    <div class="hero__search__phone">
-                        <div class="hero__search__phone__icon">
-                            <i class="fa fa-phone"></i>
-                        </div>
-                        <div class="hero__search__phone__text">
-                            <h5>+65 11.188.888</h5>
-                            <span>support 24/7 time</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Hero Section End -->
-
 <!-- Breadcrumb Section Begin -->
 <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
     <div class="container">
@@ -243,7 +193,7 @@ if(isset($_POST["titre"]) && isset($_POST["texte"])){
                 <div class="breadcrumb__text">
                     <h2>Blog</h2>
                     <div class="breadcrumb__option">
-                        <a href="./index.php">Home</a>
+                        <a href="./index.php">Accueil</a>
                         <span>Blog</span>
                     </div>
                 </div>
@@ -268,56 +218,14 @@ if(isset($_POST["titre"]) && isset($_POST["texte"])){
                     <div class="blog__sidebar__item">
                         <h4>Categories</h4>
                         <ul>
-                            <li><a href="#">All</a></li>
-                            <li><a href="#">Beauty (20)</a></li>
-                            <li><a href="#">Food (5)</a></li>
-                            <li><a href="#">Life Style (9)</a></li>
-                            <li><a href="#">Travel (10)</a></li>
+                            <li><a href="#">Céréales</a></li>
+                            <li><a href="#">Produits laitiers</a></li>
+                            <li><a href="#">Viande</a></li>
+                            <li><a href="#">Fruits</a></li>
+                            <li><a href="#">Légumes</a></li>
                         </ul>
                     </div>
-                    <div class="blog__sidebar__item">
-                        <h4>Recent News</h4>
-                        <div class="blog__sidebar__recent">
-                            <a href="#" class="blog__sidebar__recent__item">
-                                <div class="blog__sidebar__recent__item__pic">
-                                    <img src="img/blog/sidebar/sr-1.jpg" alt="">
-                                </div>
-                                <div class="blog__sidebar__recent__item__text">
-                                    <h6>09 Kinds Of Vegetables<br /> Protect The Liver</h6>
-                                    <span>MAR 05, 2019</span>
-                                </div>
-                            </a>
-                            <a href="#" class="blog__sidebar__recent__item">
-                                <div class="blog__sidebar__recent__item__pic">
-                                    <img src="img/blog/sidebar/sr-2.jpg" alt="">
-                                </div>
-                                <div class="blog__sidebar__recent__item__text">
-                                    <h6>Tips You To Balance<br /> Nutrition Meal Day</h6>
-                                    <span>MAR 05, 2019</span>
-                                </div>
-                            </a>
-                            <a href="#" class="blog__sidebar__recent__item">
-                                <div class="blog__sidebar__recent__item__pic">
-                                    <img src="img/blog/sidebar/sr-3.jpg" alt="">
-                                </div>
-                                <div class="blog__sidebar__recent__item__text">
-                                    <h6>4 Principles Help You Lose <br />Weight With Vegetables</h6>
-                                    <span>MAR 05, 2019</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="blog__sidebar__item">
-                        <h4>Search By</h4>
-                        <div class="blog__sidebar__item__tags">
-                            <a href="#">Apple</a>
-                            <a href="#">Beauty</a>
-                            <a href="#">Vegetables</a>
-                            <a href="#">Fruit</a>
-                            <a href="#">Healthy Food</a>
-                            <a href="#">Lifestyle</a>
-                        </div>
-                    </div>
+
                 </div>
             </div>
 
@@ -326,32 +234,32 @@ if(isset($_POST["titre"]) && isset($_POST["texte"])){
                     <form action="blog.php" method="post">
                         <p>Titre du message :<br>
                             <input type="text" name="titre"><br><br>
-                           Message : <textarea cols="80" rows="5" name="texte"></textarea><br></p>
+                            Message : <textarea cols="80" rows="5" name="texte"></textarea><br></p>
                         <input type="submit" value="Poster" name="poster"/>
                     </form>
 
                 </div>
                 <div class="row">
 
-                        <?php
-                        $test = $objPdo->prepare('SELECT titre_message,message,date_message, nom_prod,mail_prod,prenom_prod
+                    <?php
+                    $test = $objPdo->prepare('SELECT titre_message,message,date_message, nom_prod,mail_prod,prenom_prod
                                     FROM Message, Producteur WHERE id_prod=id_auteur');
-                        $test->execute();
-                        while ($row = $test->fetch()) {
-                            echo '<div class="col-lg-6 col-md-6 col-sm-6">
+                    $test->execute();
+                    while ($row = $test->fetch()) {
+                        echo '<div class="col-lg-6 col-md-6 col-sm-6">
                                     <div class="blog__item">
                                     <div class="blog__item__text">
                                     <ul>
                                         <li><i class="fa fa-calendar-o"></i>';
-                            echo utf8_encode($row["date_message"]).'</li>';
-                            echo '<li><i class="fa fa-comment-o"></i>';
-                            echo utf8_encode($row["nom_prod"]).' '.utf8_encode($row["prenom_prod"]).'</li></ul><h5><b>';
-                            echo utf8_encode($row["titre_message"]).' </b></h5><p>';
-                            echo utf8_encode($row["message"]).' </p>
+                        echo utf8_encode($row["date_message"]) . '</li>';
+                        echo '<li><i class="fa fa-comment-o"></i>';
+                        echo utf8_encode($row["nom_prod"]) . ' ' . utf8_encode($row["prenom_prod"]) . '</li></ul><h5><b>';
+                        echo utf8_encode($row["titre_message"]) . ' </b></h5><p>';
+                        echo utf8_encode($row["message"]) . ' </p>
                             </div></div></div>';
-                        }
-                        $test->closeCursor();
-                        ?>
+                    }
+                    $test->closeCursor();
+                    ?>
                 </div>
             </div>
         </div>
@@ -370,14 +278,14 @@ if(isset($_POST["titre"]) && isset($_POST["texte"])){
                     </div>
                     <ul>
 
-                        <li>Numéro:  03 72 74 84 00</li>
-                        <li>Adresse : Ile du Saulcy. 57045 Metz </li>
+                        <li>Numéro: 03 72 74 84 00</li>
+                        <li>Adresse : Ile du Saulcy. 57045 Metz</li>
                     </ul>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
                 <div class="footer__widget">
-                    <h6>Useful Links</h6>
+                    <h6>Liens utiles</h6>
                     <ul>
                         <li><a href="#">A propos de nous</a></li>
                         <li><a href="#">A propos de notre site</a></li>
@@ -437,7 +345,6 @@ if(isset($_POST["titre"]) && isset($_POST["texte"])){
 <script src="js/mixitup.min.js"></script>
 <script src="js/owl.carousel.min.js"></script>
 <script src="js/main.js"></script>
-
 
 
 </body>

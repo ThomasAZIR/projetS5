@@ -1,4 +1,5 @@
-<?php session_start(); ?>
+<?php session_start();
+include "connexion.php" ?>
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -8,7 +9,7 @@
     <meta name="keywords" content="Ogani, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ogani | Template</title>
+    <title> AGREEN</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
@@ -106,7 +107,7 @@
                                             echo "qui êtes vous ? :  <input type=\"submit\" value=\"Client\" onclick=\"window . location . href = 'login.php?statut=Client'; \"  />  
                            <input type=\"submit\" value=\"Producteur\" onclick=\"window . location . href = 'login.php?statut=Producteur';\"/>";
                                         } else {
-                                            echo "Welcome " . "<input type=\"submit\" value=\"Deconnexion\" onclick=\"window . location . href = 'logout.php';\"/>";
+                                            echo "Bienvenue " . "<input type=\"submit\" value=\"Deconnexion\" onclick=\"window . location . href = 'logout.php';\"/>";
                                         }
                                         ?>
                                     </div>
@@ -149,7 +150,7 @@
                     <nav class="header__menu">
                         <ul>
                             <li><a href="./index.php">Accueil</a></li>
-                            <li class="active"><a href="./shop-grid.php">Shop</a></li>
+                            <li class="active"><a href="./shop-prod.php">Magasin</a></li>
                             <li><a href="./blog.php">Blog</a></li>
                             <li><a href="./contact.php">Contact</a></li>
                             <?php
@@ -179,20 +180,14 @@
                 <div class="hero__categories">
                     <div class="hero__categories__all">
                         <i class="fa fa-bars"></i>
-                        <span>All departments</span>
+                        <span>Tous les produits</span>
                     </div>
                     <ul>
-                        <li><a href="#">Fresh Meat</a></li>
-                        <li><a href="#">Vegetables</a></li>
-                        <li><a href="#">Fruit & Nut Gifts</a></li>
-                        <li><a href="#">Fresh Berries</a></li>
-                        <li><a href="#">Ocean Foods</a></li>
-                        <li><a href="#">Butter & Eggs</a></li>
-                        <li><a href="#">Fastfood</a></li>
-                        <li><a href="#">Fresh Onion</a></li>
-                        <li><a href="#">Papayaya & Crisps</a></li>
-                        <li><a href="#">Oatmeal</a></li>
-                        <li><a href="#">Fresh Bananas</a></li>
+                        <li><a href="#">Céréales</a></li>
+                        <li><a href="#">Produits laitiers</a></li>
+                        <li><a href="#">Viandes</a></li>
+                        <li><a href="#">Fruits</a></li>
+                        <li><a href="#">Légumes</a></li>
                     </ul>
                 </div>
             </div>
@@ -201,21 +196,12 @@
                     <div class="hero__search__form">
                         <form action="#">
                             <div class="hero__search__categories">
-                                All Categories
+                                Toutes les catégories
                                 <span class="arrow_carrot-down"></span>
                             </div>
-                            <input type="text" placeholder="What do yo u need?">
-                            <button type="submit" class="site-btn">SEARCH</button>
+                            <input type="text" placeholder="De quoi avez vous besoin ?">
+                            <button type="submit" class="site-btn">RECHERCHER</button>
                         </form>
-                    </div>
-                    <div class="hero__search__phone">
-                        <div class="hero__search__phone__icon">
-                            <i class="fa fa-phone"></i>
-                        </div>
-                        <div class="hero__search__phone__text">
-                            <h5>03 72 74 84 00</h5>
-                            <span>support 24/7 time</span>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -230,7 +216,7 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="breadcrumb__text">
-                    <h2>Agreen Shop</h2>
+                    <h2>Magasin</h2>
                     <div class="breadcrumb__option">
                         <a href="./index.php">Accueil </a>
                         <span>Magasin</span>
@@ -249,7 +235,7 @@
             <div class="col-lg-3 col-md-5">
                 <div class="sidebar">
                     <div class="sidebar__item">
-                        <h4>Department</h4>
+                        <h4>Catégories</h4>
                         <ul>
                             <li><a href="#">céréales</a></li>
                             <li><a href="#">Produits laitiers</a></li>
@@ -259,7 +245,7 @@
                         </ul>
                     </div>
                     <div class="sidebar__item">
-                        <h4>Price</h4>
+                        <h4>Prix</h4>
                         <div class="price-range-wrap">
                             <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
                                  data-min="10" data-max="540">
@@ -271,137 +257,6 @@
                                 <div class="price-input">
                                     <input type="text" id="minamount">
                                     <input type="text" id="maxamount">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="sidebar__item sidebar__item__color--option">
-                        <h4>Colors</h4>
-                        <div class="sidebar__item__color sidebar__item__color--white">
-                            <label for="white">
-                                White
-                                <input type="radio" id="white">
-                            </label>
-                        </div>
-                        <div class="sidebar__item__color sidebar__item__color--gray">
-                            <label for="gray">
-                                Gray
-                                <input type="radio" id="gray">
-                            </label>
-                        </div>
-                        <div class="sidebar__item__color sidebar__item__color--red">
-                            <label for="red">
-                                Red
-                                <input type="radio" id="red">
-                            </label>
-                        </div>
-                        <div class="sidebar__item__color sidebar__item__color--black">
-                            <label for="black">
-                                Black
-                                <input type="radio" id="black">
-                            </label>
-                        </div>
-                        <div class="sidebar__item__color sidebar__item__color--blue">
-                            <label for="blue">
-                                Blue
-                                <input type="radio" id="blue">
-                            </label>
-                        </div>
-                        <div class="sidebar__item__color sidebar__item__color--green">
-                            <label for="green">
-                                Green
-                                <input type="radio" id="green">
-                            </label>
-                        </div>
-                    </div>
-                    <div class="sidebar__item">
-                        <h4>Popular Size</h4>
-                        <div class="sidebar__item__size">
-                            <label for="large">
-                                Large
-                                <input type="radio" id="large">
-                            </label>
-                        </div>
-                        <div class="sidebar__item__size">
-                            <label for="medium">
-                                Medium
-                                <input type="radio" id="medium">
-                            </label>
-                        </div>
-                        <div class="sidebar__item__size">
-                            <label for="small">
-                                Small
-                                <input type="radio" id="small">
-                            </label>
-                        </div>
-                        <div class="sidebar__item__size">
-                            <label for="tiny">
-                                Tiny
-                                <input type="radio" id="tiny">
-                            </label>
-                        </div>
-                    </div>
-                    <div class="sidebar__item">
-                        <div class="latest-product__text">
-                            <h4>Latest Products</h4>
-                            <div class="latest-product__slider owl-carousel">
-                                <div class="latest-prdouct__slider__item">
-                                    <a href="#" class="latest-product__item">
-                                        <div class="latest-product__item__pic">
-                                            <img src="img/latest-product/lp-1.jpg" alt="">
-                                        </div>
-                                        <div class="latest-product__item__text">
-                                            <h6>Crab Pool Security</h6>
-                                            <span>$30.00</span>
-                                        </div>
-                                    </a>
-                                    <a href="#" class="latest-product__item">
-                                        <div class="latest-product__item__pic">
-                                            <img src="img/latest-product/lp-2.jpg" alt="">
-                                        </div>
-                                        <div class="latest-product__item__text">
-                                            <h6>Crab Pool Security</h6>
-                                            <span>$30.00</span>
-                                        </div>
-                                    </a>
-                                    <a href="#" class="latest-product__item">
-                                        <div class="latest-product__item__pic">
-                                            <img src="img/latest-product/lp-3.jpg" alt="">
-                                        </div>
-                                        <div class="latest-product__item__text">
-                                            <h6>Crab Pool Security</h6>
-                                            <span>$30.00</span>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="latest-prdouct__slider__item">
-                                    <a href="#" class="latest-product__item">
-                                        <div class="latest-product__item__pic">
-                                            <img src="img/latest-product/lp-1.jpg" alt="">
-                                        </div>
-                                        <div class="latest-product__item__text">
-                                            <h6>Crab Pool Security</h6>
-                                            <span>$30.00</span>
-                                        </div>
-                                    </a>
-                                    <a href="#" class="latest-product__item">
-                                        <div class="latest-product__item__pic">
-                                            <img src="img/latest-product/lp-2.jpg" alt="">
-                                        </div>
-                                        <div class="latest-product__item__text">
-                                            <h6>Crab Pool Security</h6>
-                                            <span>$30.00</span>
-                                        </div>
-                                    </a>
-                                    <a href="#" class="latest-product__item">
-                                        <div class="latest-product__item__pic">
-                                            <img src="img/latest-product/lp-3.jpg" alt="">
-                                        </div>
-                                        <div class="latest-product__item__text">
-                                            <h6>Crab Pool Security</h6>
-                                            <span>$30.00</span>
-                                        </div>
-                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -426,16 +281,49 @@
                                 <input type="submit" value="produits laitiers" name="prodLait"/>
                                 <!--                         <input type="submit" value="Ajoutez cet article" name="posterSujet"/>-->
                             </form>
-                        </div> <br>
+                        </div>
+                        <br>
                         <div class="col-lg-9 col-md-7">
-                        <?php
-                        if (isset($_POST["legumes"])) {
-                            echo "<input type=\"submit\" value=\"haricots\" name=\"fruits\"/>
-                            <input type=\"submit\" value=\"aubergines\" name=\"viande\"/>
-                            <input type=\"submit\" value=\"poireau\" name=\"cereales\"/>
-                            <input type=\"submit\" value=\"carotte\" name=\"prodLait\"/>";
-                        };
-                        ?></div>
+                            <?php
+                            if (isset($_POST["legumes"])) {
+                                echo "<input type=\"submit\" value=\"haricots\" name=\"fruits\"/>
+                            <input type=\"submit\" value=\"Poireau\" name=\"poireau\"/>
+                            <input type=\"submit\" value=\"Carotte\" name=\"carotte\"/>
+                            <input type=\"submit\" value=\"haricots vert bio\" name=\"haricotVertBio\"/>";
+                            }
+                            elseif (isset($_POST['fruits'])){
+                                echo "<input type=\"submit\" value=\"Pomme\" name=\"pomme\"/>
+                                      <input type=\"submit\" value=\"Pomme bio\" name=\"pommeBio\"/>
+                                      <input type=\"submit\" value=\"Poire\" name=\"poire\"/>
+                                      <input type=\"submit\" value=\"Poire bio\" name=\"poireBio\"/>
+                                      <input type=\"submit\" value=\"Banane bio\" name=\"bananeBio\"/>
+                                      <input type=\"submit\" value=\"Mirabelle\" name=\"mirabelle\"/>
+                                      <input type=\"submit\" value=\"Mirabelle bio\" name=\"mirabelleBio\"/>
+                                      <input type=\"submit\" value=\"Fraise\" name=\"fraise\"/>
+                                      <input type=\"submit\" value=\"Fraise bio\" name=\"fraiseBio\"/>
+                                      <input type=\"submit\" value=\"Framboise\" name=\"framboise\"/>
+                                      <input type=\"submit\" value=\"Framboise bio\" name=\"framboisebio\"/>
+                                      <input type=\"submit\" value=\"Pêche\" name=\"peche\"/>
+                                      <input type=\"submit\" value=\"Pêche bio\" name=\"pecheBio\"/>
+                                      <input type=\"submit\" value=\"Abricot\" name=\"abricot\"/>
+                                      <input type=\"submit\" value=\"Abricot bio\" name=\"abricotBio\"/>
+                                      <input type=\"submit\" value=\"Mûre\" name=\"mure\"/>
+                                      <input type=\"submit\" value=\"Mûre bio\" name=\"mureBio\"/>";
+                            }
+                            elseif (isset($_POST['viande'])){
+                                echo "<input type=\"submit\" value=\"Poulet bio\" name=\"pouletBio\"/>";
+                            }
+                            elseif (isset($_POST['cereales'])){
+                                echo "<input type=\"submit\" value=\"Blé bio\" name=\"bleBio\"/>
+                                      <input type=\"submit\" value=\"Soja bio\" name=\"sojaBio\"/>
+                                      <input type=\"submit\" value=\"Maïs\" name=\"mais\"/>
+                                      <input type=\"submit\" value=\"Blé\" name=\"ble\"/>";
+                            }
+                            elseif (isset($_POST['prodLait'])){
+                                echo "<input type=\"submit\" value=\"Lait\" name=\"lait\"/>";
+                            }
+                            ;
+                            ?></div>
 
 
                     </div>
@@ -448,10 +336,20 @@
                         <div class="section-title product__discount__title">
                             <h2>Vos produits</h2>
                         </div>
-                        <div></div>
+                        <div>
+                            <?php
+//                                var_dump($_SESSION['email']);
+                                $produit = $objPdo->prepare('SELECT * FROM Propose o, Produit p, Producteur pro WHERE p.id_pdt = o.id_pdt AND pro.id_prod = o.id_prod AND mail_prod = ?');
+                                $produit->bindValue(1,$_SESSION['email']);
+                                $produit->execute();
+                                while($row = $produit->fetch()) {
+                                    echo "<div>" . $row['lib_pdt'] . "</div>";
+                                }
+                                $produit->closeCursor();
+                            ?>
+                        </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

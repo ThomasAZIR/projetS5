@@ -1,129 +1,5 @@
-<?php
-session_start();
-
+<?php session_start();
 include "connexion.php";
-$identifiantErr = $passwordErr = "";
-$identifiant = $password = "";
-$testIdentifiant = $testPassword = false;
-$statut = $_GET['statut'];
-
-//bouton pour se connecter
-if (!empty($_POST["validate"])) {
-
-    //On verifie que les champs sont remplis correctement sinon avertissement
-    if (empty($_POST["ide"])) {
-        $identifiantErr = "Champ obligatoire";
-    } else {
-        $identifiant = $_POST["ide"]; // erreur ?
-        $testIdentifiant = true;
-    }
-    if (empty($_POST["pass"])) {
-        $passwordErr = "Champ obligatoire";
-    } else {
-        $password = $_POST["pass"];
-        $testPassword = true;
-    }
-
-    //si Les champs sont remplis, on fait une requète pour recupere les coordonnées de l'utilisateur
-
-    //producteur
-
-    if ($statut == "Producteur") {
-        if ($testIdentifiant && $testPassword) {
-            $testExist = $objPdo->prepare('SELECT * FROM Producteur WHERE mail_prod = ?');
-            $testExist->bindValue(1, utf8_decode($identifiant));
-            $testExist->execute();
-
-            $resIdentifiant = NULL;
-
-            while ($row = $testExist->fetch()) {
-                $resIdentifiant = $row["id_prod"];
-                $resNom = utf8_encode($row["nom_prod"]);
-                $resPrenom = utf8_encode($row["prenom_prod"]);
-                $resAdd = utf8_encode($row["adresse_prod"]);
-                $resEmail = utf8_encode($row["mail_prod"]);
-                $resMdp = utf8_encode($row["mdp_prod"]);
-            }
-            $testExist->closeCursor();
-//            var_dump($resIdentifiant);
-//            var_dump($resMdp);
-//            var_dump($password);
-//            var_dump($resEmail);
-
-            //Si la requete marche pas c'est que l'identifiant est invalide ! donc on l'affiche, sinon on créé la session si le mdp est valide
-            if ($resIdentifiant == NULL) {
-                $identifiantErr = "Identifiant invalide";
-            } else {
-                if ($resMdp == $password) {
-                    $_SESSION['logged'] = true;
-                    $_SESSION['motDePasse'] = $resMdp;
-                    $_SESSION["email"] = $resEmail;
-                    $_SESSION["id_prod"] = $resIdentifiant;
-                    $_SESSION["nom"] = $resNom;
-                    $_SESSION["prenom"] = $resPrenom;
-                    $_SESSION["statut"] = $statut;
-                    //initialisation du panier
-                    $_SESSION['panier'] = array();
-                    $_SESSION['panier']['id_pdt'] = array();
-                    $_SESSION['panier']['id_prod'] = array();
-                    $_SESSION['panier']['qte'] = array();
-                    $_SESSION['panier']['prix'] = array();
-                    header('location:index.php');
-                } else {
-                    $passwordErr = "Mot de passe invalide";
-                }
-            }
-        }
-    }
-
-
-    //Client
-    if ($statut == "Client") {
-        if ($testIdentifiant && $testPassword) {
-            $testExist = $objPdo->prepare('SELECT * FROM Client WHERE mail_client = ?');
-            $testExist->bindValue(1, utf8_decode($identifiant));
-            $testExist->execute();
-
-            $resIdentifiant = NULL;
-
-            while ($row = $testExist->fetch()) {
-                $resIdentifiant = $row["id_client"];
-                $resNom = utf8_encode($row["nom_client"]);
-                $resPrenom = utf8_encode($row["prenom_client"]);
-                $resAdd = utf8_encode($row["adresse_client"]);
-                $resEmail = utf8_encode($row["mail_client"]);
-                $resMdp = utf8_encode($row["mdp_client"]);
-            }
-            $testExist->closeCursor();
-//                var_dump($resIdentifiant);
-//                var_dump($password);
-
-            //Si la requete marche pas c'est que l'identifiant est invalide ! donc on l'affiche, sinon on créé la session si le mdp est valide
-            if ($resIdentifiant == NULL) {
-                $identifiantErr = "Identifiant invalide";
-            } else {
-                if ($resMdp == $password) {
-                    $_SESSION['logged'] = true;
-                    $_SESSION['motDePasse'] = $resMdp;
-                    $_SESSION["email"] = $resEmail;
-                    $_SESSION["id_client"] = $resIdentifiant;
-                    $_SESSION["nom"] = $resNom;
-                    $_SESSION["prenom"] = $resPrenom;
-                    $_SESSION["statut"] = $statut;
-                    //initialisation du panier
-                    $_SESSION['panier'] = array();
-                    $_SESSION['panier']['id_pdt'] = array();
-                    $_SESSION['panier']['id_prod'] = array();
-                    $_SESSION['panier']['qte'] = array();
-                    $_SESSION['panier']['prix'] = array();
-                    header('location:index.php');
-                } else {
-                    $passwordErr = "Mot de passe invalide";
-                }
-            }
-        }
-    }
-}
 ?>
 
 <!DOCTYPE html>
@@ -227,7 +103,14 @@ if (!empty($_POST["validate"])) {
                             <li><i> <!-- class="fa fa-envelope"> --> Université de lorraine, IUT de metz </i></li>
                             <li>
                                 <div class="header__top__right__auth">
-                                    Bienvenue
+                                    <?php
+                                    if (!isset($_SESSION['email'])) {
+                                        echo "qui êtes vous ? :  <input type=\"submit\" value=\"Client\" onclick=\"window . location . href = 'login.php?statut=Client'; \"  />  
+                           <input type=\"submit\" value=\"Producteur\" onclick=\"window . location . href = 'login.php?statut=Producteur';\"/>";
+                                    } else {
+                                        echo "Welcome " . "<input type=\"submit\" value=\"Deconnexion\" onclick=\"window . location . href = 'logout.php';\"/>";
+                                    }
+                                    ?>
                                 </div>
                             </li>
                         </ul>
@@ -285,17 +168,21 @@ if (!empty($_POST["validate"])) {
                         }
                         ?>
                         <li><a href="./contact.php">Contact</a></li>
-                        <li class="active"><a href="#">S'identifier</a>
-                            <ul class="header__menu__dropdown">
-                                <li><a href="./login.php?statut=Client">Client</a></li>
-                                <li><a href="./login.php?statut=Producteur">Producteur</a></li>
-                            </ul>
-                        </li>
+                        <?php
+                        if (!isset($_SESSION['email'])) {
+                            echo "
+                             <li><a href=\"#\">S'identifier</a>
+                                <ul class=\"header__menu__dropdown\">
+                                    <li><a href=\"./login.php?statut=Client\">Client</a></li>
+                                    <li><a href=\"./login.php?statut=Producteur\">Producteur</a></li>
+                                </ul>
+                            </li>";
+                        }
+                        ?>
                     </ul>
                 </nav>
             </div>
         </div>
-    </div>
 </header>
 <!-- Header Section End -->
 
@@ -306,10 +193,10 @@ if (!empty($_POST["validate"])) {
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="breadcrumb__text">
-                    <h2>Se connecter - <?php echo $statut; ?></h2>
+                    <h2>Votre panier</h2>
                     <div class="breadcrumb__option">
-                        <input type="button" value="Accueil" onclick="window.location.href='index.php';"/>
-                        <input type="button" value="Inscription" onclick="window.location.href='inscription.php';"/>
+                        <a href="./index.php">Accueil</a>
+                        <span>Panier</span>
                     </div>
                 </div>
             </div>
@@ -318,79 +205,52 @@ if (!empty($_POST["validate"])) {
 </section>
 <!-- Breadcrumb Section End -->
 
-<!-- Contact Section Begin -->
-<section class="contact spad">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-3 col-md-3 col-sm-6 text-center">
-                <div class="contact__widget">
+<div class="col-lg-9 col-md-7">
+    <div class="product__discount">
+        <div class="section-title product__discount__title">
+            <?php
 
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-6 text-center">
-                <div class="contact__widget">
+            $prixTotal = 0;
+            //            var_dump($_SESSION['panier']);
+            if (isset($_SESSION["panier"]) && empty($_SESSION["panier"])) {
+                echo "<h4>Votre panier est vide.</h4>";
+            } else if (isset($_SESSION["panier"]) && !empty($_SESSION["panier"])) {
+//                        var_dump($_SESSION['panier']);
 
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-6 text-center">
-                <div class="contact__widget">
+                $length = count($_SESSION['panier']['id_pdt']);
 
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-6 text-center">
-                <div class="contact__widget">
+//                Tests variables
+//                echo $length;
+//                echo $_SESSION['panier']['id_pdt'][0];
+//                echo $_SESSION['panier']['id_prod'][0];
 
-                </div>
-            </div>
+
+                for ($i = 0; $i <= $length - 1; $i++) {
+                    echo "                <div class=\"col-lg-9 col-md-7\">
+                                <div class=\"product__discount\">
+                                    <div class=\"section-title product__discount__title\">";
+                    $produit = $objPdo->prepare('SELECT * FROM Produit o, Propose p, Producteur pr WHERE o.id_pdt = p.id_pdt AND p.id_prod = pr.id_prod AND p.id_pdt = ? AND p.id_prod = ?');
+                    $produit->bindValue(1, $_SESSION['panier']['id_pdt'][$i]);
+                    $produit->bindValue(2, $_SESSION['panier']['id_prod'][$i]);
+                    $produit->execute();
+                    while ($row = $produit->fetch()) {
+                        echo " <h2>" . utf8_encode($row['lib_pdt'])
+                            . "</h2></div> <div>N°"
+                            . $_SESSION['panier']['id_pdt'][$i]
+                            . " Producteur : "
+                            . utf8_encode($row['nom_prod'])
+                            . "<br> Quantité : " . $_SESSION['panier']['qte'][$i] . "prix :" . $row['prix_pdt'] . "</div>";
+                        $prixTotal += $row['prix_pdt'];
+                    }
+                    $produit->closeCursor();
+                    echo "</div></div>";
+                }
+                echo "Prix du panier :" . $prixTotal . ". Voulez vous valider ? <br> <input type=\"submit\" value=\"Valider\" name=\"valider\"/>";
+            }
+            ?>
         </div>
     </div>
-</section>
-<!-- Contact Section End -->
-
-<!-- Map Begin -->
-
-<!-- Map End -->
-
-<!-- Contact Form Begin -->
-<section class="Inscription">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-3 col-md-3 col-sm-6 text-center">
-                <div class="contact__widget">
-                    <form id=formConnexion method="post">
-                        <table>
-                            <tr>
-                                <td>
-                                    Email:
-                                </td>
-                                <td>
-                                    <input type="text" name="ide" placeholder="saisissez votre adresse mail" size="18"
-                                           value="<?php echo isset($_POST['ide']) ? $_POST['ide'] : '' ?>"><br><span
-                                            class="error"> <?php echo $identifiantErr; ?></span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    mdp:
-                                </td>
-                                <td>
-                                    <input type="password" name="pass" placeholder="mot de passe" size="18"
-                                           value="<?php echo isset($_POST['pass']) ? $_POST['pass'] : '' ?>"><br><span
-                                            class="error"> <?php echo $passwordErr; ?></span>
-                                </td>
-                            </tr>
-                        </table>
-                        <br>
-                        <div><input type="submit" value="Connexion" name="validate"/> <input type="reset"
-                                                                                             value="Effacer"/></div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Contact Form End -->
-
+</div>
 <!-- Footer Section Begin -->
 <footer class="footer spad">
     <div class="container">
@@ -402,8 +262,8 @@ if (!empty($_POST["validate"])) {
                     </div>
                     <ul>
 
-                        <li>Numéro:  03 72 74 84 00</li>
-                        <li>Adresse : Ile du Saulcy. 57045 Metz </li>
+                        <li>Numéro: 03 72 74 84 00</li>
+                        <li>Adresse : Ile du Saulcy. 57045 Metz</li>
                     </ul>
                 </div>
             </div>
@@ -416,7 +276,6 @@ if (!empty($_POST["validate"])) {
                         <li><a href="#">Site Sécurisé</a></li>
                         <li><a href="#">Information de livraison</a></li>
                         <li><a href="#">Politique de confidentialité</a></li>
-
                     </ul>
                     <ul>
                         <li><a href="#">Qui sommes nous</a></li>
@@ -469,6 +328,7 @@ if (!empty($_POST["validate"])) {
 <script src="js/mixitup.min.js"></script>
 <script src="js/owl.carousel.min.js"></script>
 <script src="js/main.js"></script>
+
 
 </body>
 

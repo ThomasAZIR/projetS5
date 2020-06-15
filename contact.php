@@ -9,7 +9,7 @@
     <meta name="keywords" content="Ogani, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ogani | Template</title>
+    <title> AGREEN</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
@@ -106,7 +106,7 @@
                                         echo "qui êtes vous ? :  <input type=\"submit\" value=\"Client\" onclick=\"window . location . href = 'login.php?statut=Client'; \"  />  
                            <input type=\"submit\" value=\"Producteur\" onclick=\"window . location . href = 'login.php?statut=Producteur';\"/>";
                                     } else {
-                                        echo "Welcome " . "<input type=\"submit\" value=\"Deconnexion\" onclick=\"window . location . href = 'logout.php';\"/>";
+                                        echo "Bienvenue " . "<input type=\"submit\" value=\"Deconnexion\" onclick=\"window . location . href = 'logout.php';\"/>";
                                     }
                                     ?>
                                 </div>
@@ -147,9 +147,24 @@
             <div class="col-lg-6">
                 <nav class="header__menu">
                     <ul>
-                        <li><a href="./index.php">Home</a></li>
-                        <li><a href="./shop-grid.php">Shop</a></li>
-                        <li><a href="./blog.php">Blog</a></li>
+                        <li><a href="./index.php">Accueil</a></li>
+                        <?php
+                        if (isset($_SESSION['email'])) {
+                            if ($_SESSION["statut"] == "Client") {
+                                echo "<li><a href=\"./shop-grid.php\">Magasin</a></li>";
+                            } elseif ($_SESSION["statut"] == "Producteur") {
+                                echo "<li><a href=\"./shop-prod.php\">Magasin</a></li>";
+                            }
+                        } else {
+                            echo "<li><a href=\"./shop-grid.php\">Magasin</a></li>";
+                        }
+
+                        if (isset($_SESSION['email'])){
+                            if ($_SESSION['statut'] == "Producteur"){
+                                echo "<li><a href=\"./blog.php\">Blog</a></li>";
+                            }
+                        }
+                        ?>
                         <li class="active"><a href="./contact.php">Contact</a></li>
                         <?php
                         if (!isset($_SESSION['email'])) {
