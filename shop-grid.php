@@ -403,20 +403,30 @@ if (isset($_GET['idPdt'])) {
                                 }
                                 $prod->closeCursor();
                                 $pdts = $objPdo->query('SELECT * FROM Propose o, Produit u WHERE o.id_pdt = u.id_pdt AND o.id_prod =' . $id);
+                                echo "<table class='tab-pdt'>
+                                        <thead>
+                                            <td class='tab-pdt-cel'>Produit :</td>
+                                            <td class='tab-pdt-cel'>Prix unitaire ( € ) :</td>
+                                            <td class='tab-pdt-cel'>Ajoutez au panier :</td>
+                                        </thead>";
                                 while ($row = $pdts->fetch()) {
                                     $idPdtTemp = $row['id_pdt'];
-                                    echo "<div>" . utf8_encode($row['lib_pdt']) . ", prix: " . $row['prix_pdt'] . " € unité.<a href='shop-grid.php?id=$id&idPdt=$idPdtTemp'> Rajouter au panier</a> </div>";
+                                    echo "<tr><td class='tab-pdt-cel'>" . utf8_encode($row['lib_pdt']) . "</tdtab-pdt-cel><td class='tab-pdt-cel'> " . $row['prix_pdt'] . "</td><td class='tab-pdt-cel'><a href='shop-grid.php?id=$id&idPdt=$idPdtTemp'> Ajouter</a> </td></tr>";
                                 }
+                                echo "</table>";
                                 $pdts->closeCursor();
+                                echo "<br> <h3>Choisir un autre producteur : </h3><br>";
                             }
                             ?>
 
                             <?php
+                            echo "<table class='tab-prod'>";
                             $listeProds = $objPdo->query('SELECT  *  FROM Producteur');
                             while ($row = $listeProds->fetch()) {
                                 $id = $row['id_prod'];
-                                echo "<div class='section-title product__discount__title'> <h2>" . $row['nom_prod'] . " </h2><br><br><a href=\"shop-grid.php?id=$id\">Voir ce producteur</a> <p> </p></div>";
+                                echo "<tr> <td><h2>" . $row['nom_prod'] . " </h2></td><td><a href=\"shop-grid.php?id=$id\">Voir ce producteur</a></td></tr>";
                             }
+                            echo "</table>";
                             $listeProds->closeCursor();
                             ?>
                         </div>

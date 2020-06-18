@@ -224,28 +224,38 @@ include "connexion.php";
 //                echo $_SESSION['panier']['id_pdt'][0];
 //                echo $_SESSION['panier']['id_prod'][0];
 
-
+                echo "<br><table class='tab-pdt'>
+                        <thead>
+                            <td>Produit</td>
+                            <td>Numéro de série</td>
+                            <td>Producteur</td>
+                            <td>Quantitée commandée</td>
+                            <td>prix</td>
+</thead>";
                 for ($i = 0; $i <= $length - 1; $i++) {
-                    echo "                <div class=\"col-lg-9 col-md-7\">
-                                <div class=\"product__discount\">
-                                    <div class=\"section-title product__discount__title\">";
                     $produit = $objPdo->prepare('SELECT * FROM Produit o, Propose p, Producteur pr WHERE o.id_pdt = p.id_pdt AND p.id_prod = pr.id_prod AND p.id_pdt = ? AND p.id_prod = ?');
                     $produit->bindValue(1, $_SESSION['panier']['id_pdt'][$i]);
                     $produit->bindValue(2, $_SESSION['panier']['id_prod'][$i]);
                     $produit->execute();
                     while ($row = $produit->fetch()) {
-                        echo " <h2>" . utf8_encode($row['lib_pdt'])
-                            . "</h2></div> <div>N°"
+                        echo " <tr><td class='tab-pdt-cel'>" . utf8_encode($row['lib_pdt'])
+                            . "</td><td class='tab-pdt-cel'>N°"
                             . $_SESSION['panier']['id_pdt'][$i]
-                            . " Producteur : "
+                            . "</td><td class='tab-pdt-cel'>"
                             . utf8_encode($row['nom_prod'])
-                            . "<br> Quantité : " . $_SESSION['panier']['qte'][$i] . "prix :" . $row['prix_pdt'] . "</div>";
+                            . "</td><td class='tab-pdt-cel'>"
+                            . $_SESSION['panier']['qte'][$i]
+                            . "</td><td class='tab-pdt-cel'>"
+                            . $row['prix_pdt']
+                            . "</td></tr>";
                         $prixTotal += $row['prix_pdt'];
                     }
+
                     $produit->closeCursor();
-                    echo "</div></div>";
+                    echo "";
                 }
-                echo "Prix du panier :" . $prixTotal . ". Voulez vous valider ? <br> <input type=\"submit\" value=\"Valider\" name=\"valider\"/>";
+                echo "</table>";
+                echo "<div>Prix du panier :" . $prixTotal . ". Voulez vous valider ? <br> <input type=\"submit\" value=\"Valider\" name=\"valider\"/></div>";
             }
             ?>
         </div>

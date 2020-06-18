@@ -29,13 +29,26 @@
 /*----------------------------------------*/
 /* Template default CSS
 /*----------------------------------------*/
-
+.tab-prod{
+}
 html,
 body {
 	height: 100%;
 	font-family: "Cairo", sans-serif;
 	-webkit-font-smoothing: antialiased;
 	font-smoothing: antialiased;
+}
+
+.tab-pdt{
+	border-style: solid;
+	text-align: center;
+	border-width: 0.5px;
+}
+
+.tab-pdt-cel{
+	border-style: solid;
+	border-width: 0.5px;
+	text-align: center;
 }
 
 h1,

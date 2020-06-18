@@ -235,7 +235,7 @@ include "connexion.php" ?>
                         <span>FRUITS FRAIS</span>
                         <h2> Légumes<br/>100% BIO</h2>
                         <p>Commandes gratuites</p>
-                        <a href="#" class="primary-btn">ACHETER MAINTENANT</a>
+                        <a href="shop-grid.php" class="primary-btn">ACHETER MAINTENANT</a>
                     </div>
                 </div>
             </div>
